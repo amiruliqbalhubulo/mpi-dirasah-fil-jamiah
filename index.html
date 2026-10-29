@@ -1,1123 +1,1222 @@
-<!-- 1. SPLASH SCREEN -->
-<div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-pearl transition-opacity duration-700">
-    <div class="relative mb-6">
-        <div class="absolute -inset-4 rounded-full bg-gold/20 blur-xl glow-gold"></div>
-        <div class="relative w-28 h-28 rounded-full bg-gradient-to-br from-gold-dark via-gold to-gold-light flex items-center justify-center text-pearl text-4xl shadow-2xl">
-            <i class="fa-solid fa-graduation-cap"></i>
-        </div>
-    </div>
-    <h1 class="text-3xl md:text-5xl font-bold text-gold-light tracking-wide mb-2 text-center px-4 arabic-text">الدراسة في الجامعة</h1>
-    <p class="text-gray-400 text-xs md:text-sm tracking-widest uppercase mb-6 text-center px-4">Media Pembelajaran Interaktif Bahasa Arab Fase F (Kelas XII)</p>
-    <div class="w-56 h-1.5 bg-gray-800 rounded-full overflow-hidden">
-        <div id="splash-progress" class="h-full bg-gold w-0 transition-all duration-1000"></div>
-    </div>
-    <p class="text-xs text-gray-500 mt-4">Kurikulum Berbasis Cinta (KBC) • Kemenag RI • MAS Hubulo</p>
-</div>
-
-<!-- MAIN APP CONTAINER -->
-<div id="app-container" class="flex-1 flex flex-col hidden opacity-0 transition-opacity duration-500 min-h-screen pb-8">
-
-    <!-- HEADER / NAVBAR -->
-    <header class="bg-cardbg/80 dark:bg-cardbg/80 backdrop-blur-md border-b border-gold/20 px-4 py-3 sticky top-0 z-30 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-lg">
-                <i class="fa-solid fa-book-open-reader"></i>
-            </div>
-            <div>
-                <h2 class="text-sm md:text-base font-bold text-gold-light arabic-text">الدراسة في الجامعة</h2>
-                <p class="text-[11px] text-gray-400">Bahasa Arab Kelas XII • MAS Hubulo</p>
-            </div>
-        </div>
-        <div class="flex items-center space-x-2 md:space-x-3">
-            <!-- Status Sync GAS Indicator -->
-            <div id="gas-status-indicator" class="hidden md:flex items-center space-x-1.5 bg-darkslate px-2.5 py-1 rounded-full border border-gold/20 text-[10px] text-gray-300">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span>GAS Sync</span>
-            </div>
-
-            <!-- Logo Sekolah Hubulo -->
-            <img src="https://iili.io/nvQ1j3l.png" alt="Logo MAS Hubulo" class="w-9 h-9 object-contain rounded-full bg-darkslate p-1 border border-gold/30 hover:border-gold transition-all" title="MAS Hubulo Gorontalo">
-
-            <!-- Toggle Theme Dark/Light Button -->
-            <button onclick="toggleTheme()" class="w-9 h-9 rounded-full bg-darkslate border border-gold/30 flex items-center justify-center text-gold hover:bg-gold/20 transition-all" title="Ubah Tema (Terang/Gelap)">
-                <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
-            </button>
-
-            <!-- Toggle Audio Backsound Button -->
-            <button onclick="toggleBacksound()" class="w-9 h-9 rounded-full bg-darkslate border border-gold/30 flex items-center justify-center text-gold hover:bg-gold/20 transition-all" title="Audio Backsound">
-                <i id="audio-icon" class="fa-solid fa-music text-sm opacity-50"></i>
-            </button>
-
-            <div id="student-badge" class="hidden items-center space-x-3 bg-darkslate px-3.5 py-1.5 rounded-full border border-gold/20">
-                <div class="w-7 h-7 rounded-full bg-gold text-pearl font-bold text-xs flex items-center justify-center" id="student-initials">S</div>
-                <div class="text-xs">
-                    <span id="nav-student-name" class="font-semibold text-gray-200 block">Siswa</span>
-                    <span id="nav-student-class" class="text-gold text-[10px]">Kelas XII</span>
-                </div>
-                <button onclick="confirmExit()" class="text-gray-400 hover:text-red-400 ml-2 text-xs transition-colors" title="Keluar / Reset Sesi"><i class="fa-solid fa-right-from-bracket"></i></button>
-            </div>
-        </div>
-    </header>
-
-    <!-- DYNAMIC VIEWPORT CONTAINER -->
-    <main class="flex-1 flex flex-col relative overflow-y-auto">
-
-        <!-- 1. HALAMAN COVER -->
-        <section id="view-cover" class="flex-1 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden my-auto">
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
-
-            <div class="max-w-4xl mx-auto z-10 flex flex-col items-center">
-                <div class="inline-flex items-center space-x-2 bg-gold/10 border border-gold/30 text-gold-light px-4 py-1.5 rounded-full text-xs font-medium mb-6">
-                    <i class="fa-solid fa-heart text-gold"></i>
-                    <span>Kurikulum Berbasis Cinta (KBC) Kemenag RI & Asesmen AKM</span>
-                </div>
-
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-3 tracking-tight arabic-text">
-                    الدراسة في الجامعة
-                </h1>
-                <p class="text-lg md:text-xl text-gold font-semibold mb-2">Pendidikan di Jenjang Perguruan Tinggi</p>
-                <p class="text-gray-300 text-xs md:text-sm max-w-2xl mb-8 leading-relaxed">
-                    Pendalaman Wacana Akademik, Kosakata Bahasa Prosedur, dan Sintaksis <span class="text-gold-light font-semibold">Al-Fi'lu Al-Mudhari' (المرفوع، المنصوب، المجزوم)</span> dalam Konteks Lokal (Gorontalo) & Global (Mesir, Saudi Arabia, Inggris).
-                </p>
-
-                <!-- Animated Toga Graduation Cap Emblem Banner -->
-                <div class="w-full max-w-lg mb-8 bg-cardbg/90 border border-gold/40 rounded-2xl p-6 glow-gold flex justify-center items-center shadow-2xl relative overflow-hidden group">
-                    <svg viewBox="0 0 500 230" class="w-full h-48 rounded-xl bg-gradient-to-b from-[#0b0e14] via-[#121722] to-[#1a2130]">
-                        <defs>
-                            <radialGradient id="togaGlow" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%" stop-color="#f3e5ab" stop-opacity="1"/>
-                                <stop offset="50%" stop-color="#d4af37" stop-opacity="0.5"/>
-                                <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
-                            </radialGradient>
-                            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#f3e5ab"/>
-                                <stop offset="50%" stop-color="#d4af37"/>
-                                <stop offset="100%" stop-color="#aa820a"/>
-                            </linearGradient>
-                        </defs>
-
-                        <g class="animate-ai-grid" stroke="#d4af37" stroke-width="0.5" stroke-dasharray="3,3">
-                            <circle cx="250" cy="100" r="90" fill="url(#togaGlow)" opacity="0.4"/>
-                            <line x1="30" y1="40" x2="470" y2="40"/>
-                            <line x1="30" y1="180" x2="470" y2="180"/>
-                            <circle cx="100" cy="40" r="3" fill="#d4af37"/>
-                            <circle cx="400" cy="40" r="3" fill="#d4af37"/>
-                            <circle cx="70" cy="180" r="3" fill="#60a5fa"/>
-                            <circle cx="430" cy="180" r="3" fill="#c084fc"/>
-                        </g>
-
-                        <g class="animate-float">
-                            <g transform="translate(250, 95)">
-                                <path d="M-40 10 C-40 30, 40 30, 40 10 L30 32 C30 42, -30 42, -30 32 Z" fill="url(#goldGrad)" stroke="#f3e5ab" stroke-width="1.5"/>
-                                <polygon points="0,-35 95,-5 0,25 -95,-5" fill="#181b22" stroke="url(#goldGrad)" stroke-width="4.5"/>
-                                <polygon points="0,-30 85,-5 0,20 -85,-5" fill="#0f1115" opacity="0.8"/>
-                                <circle cx="0" cy="-5" r="5" fill="#f3e5ab" stroke="#d4af37" stroke-width="1.5"/>
-                                <path d="M0 -5 C-35 -5, -60 10, -65 25" fill="none" stroke="#f3e5ab" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="0"/>
-                                <polygon points="-65,25 -70,45 -60,45" fill="#d4af37"/>
-                                <circle cx="-65" cy="25" r="3" fill="#f3e5ab"/>
-                            </g>
-                            <path d="M120,60 L123,68 L131,71 L123,74 L120,82 L117,74 L109,71 L117,68 Z" fill="#f3e5ab" opacity="0.8"/>
-                            <path d="M380,50 L382,56 L388,58 L382,60 L380,66 L378,60 L372,58 L378,56 Z" fill="#d4af37" opacity="0.9"/>
-                        </g>
-                        <text x="250" y="210" fill="#f3e5ab" font-size="12" font-weight="bold" text-anchor="middle" font-family="Inter, sans-serif" letter-spacing="1.5">GERBANG AKADEMIK PERGURUAN TINGGI</text>
-                    </svg>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="flex flex-wrap justify-center gap-4 w-full max-w-md">
-                    <button onclick="playBtnClick(); openModal('modal-developer')" class="flex-1 min-w-[140px] bg-cardbg hover:bg-darkslate border border-gold/30 hover:border-gold text-gold-light py-3 px-5 rounded-xl font-semibold text-xs transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg">
-                        <i class="fa-solid fa-id-badge text-gold"></i>
-                        <span>Pengembang</span>
-                    </button>
-                    <button onclick="playBtnClick(); openModal('modal-objectives')" class="flex-1 min-w-[140px] bg-cardbg hover:bg-darkslate border border-gold/30 hover:border-gold text-gold-light py-3 px-5 rounded-xl font-semibold text-xs transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg">
-                        <i class="fa-solid fa-bullseye text-gold"></i>
-                        <span>Tujuan & KBC</span>
-                    </button>
-                    <button onclick="playBtnClick(); goToIdentity()" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light hover:brightness-110 text-pearl py-3.5 px-8 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center space-x-3 shadow-xl glow-gold">
-                        <i class="fa-solid fa-play"></i>
-                        <span>MULAI PETUALANGAN BELAJAR</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. FORM INPUT IDENTITAS SISWA -->
-        <section id="view-identity" class="flex-1 flex flex-col items-center justify-center p-6 hidden my-auto">
-            <div class="max-w-md w-full bg-cardbg border border-gold/30 rounded-2xl p-8 shadow-2xl relative">
-                <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-xl bg-gold text-pearl flex items-center justify-center text-xl shadow-lg">
-                    <i class="fa-solid fa-user-graduate"></i>
-                </div>
-                <h2 class="text-xl font-bold text-center text-white mt-4 mb-1">Registrasi Identitas Siswa</h2>
-                <p class="text-gray-400 text-xs text-center mb-6">Masukkan data diri resmi untuk mencetak Laporan Hasil Belajar PDF.</p>
-
-                <form id="identity-form" onsubmit="handleIdentitySubmit(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">Nama Lengkap Siswa</label>
-                        <input type="text" id="input-name" required placeholder="Contoh: Muhammad Al Fatih" class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none transition-all">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">Kelas / Rombel (Fase F)</label>
-                        <select id="input-class" required class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all">
-                            <option value="" disabled selected>Pilih Kelas</option>
-                            <option value="Kelas XII.1 (Fase F)">Kelas XII.1 (Fase F)</option>
-                            <option value="Kelas XII.2 (Fase F)">Kelas XII.2 (Fase F)</option>
-                        </select>
-                    </div>
-                    <div id="identity-error" class="text-red-400 text-xs text-center hidden">Harap isi nama dan kelas Anda!</div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-pearl font-bold py-3.5 rounded-xl hover:brightness-110 transition-all shadow-lg text-sm mt-2">
-                        Lanjut ke Panduan Pembelajaran <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </button>
-                </form>
-            </div>
-        </section>
-
-        <!-- 3. HALAMAN PENGANTAR & PANDUAN PENGGUNA (SLIDES) -->
-        <section id="view-guide" class="flex-1 flex flex-col items-center justify-center p-6 hidden my-auto">
-            <div class="max-w-2xl w-full bg-cardbg border border-gold/30 rounded-2xl p-8 shadow-2xl flex flex-col justify-between min-h-[420px]">
-                <div>
-                    <div class="flex items-center justify-between mb-6 border-b border-gray-800 pb-4">
-                        <h3 id="guide-title" class="text-lg font-bold text-gold-light">Selamat Datang!</h3>
-                        <span id="guide-counter" class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full font-semibold">Panduan 1 dari 3</span>
-                    </div>
-                    <div id="guide-content" class="text-gray-300 text-xs md:text-sm leading-relaxed space-y-4"></div>
-                </div>
-                <div class="flex items-center justify-between pt-6 border-t border-gray-800 mt-6">
-                    <button id="guide-prev" onclick="prevGuideStep()" class="px-5 py-2.5 rounded-xl bg-darkslate hover:bg-gray-800 text-gray-300 text-xs font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed">
-                        <i class="fa-solid fa-arrow-left mr-2"></i> Sebelumnya
-                    </button>
-                    <button id="guide-next" onclick="nextGuideStep()" class="px-6 py-2.5 rounded-xl bg-gold hover:bg-gold-light text-pearl text-xs font-bold transition-all shadow-md">
-                        Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. MENU UTAMA (DASHBOARD TERKUNCI BERTAHAP 3 LEVEL) -->
-        <section id="view-dashboard" class="flex-1 flex flex-col p-6 max-w-5xl mx-auto w-full hidden justify-center my-auto">
-            <div class="mb-8 text-center">
-                <div class="inline-block bg-gold/10 border border-gold/30 text-gold px-4 py-1 rounded-full text-xs font-semibold mb-2">DASHBOARD UTAMA PEMBELAJARAN BERTAHAP</div>
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Pilih Alur Pembelajaran</h2>
-                <p class="text-gray-400 text-xs md:text-sm max-w-xl mx-auto">Selesaikan materi belajar untuk membuka menu bermain dan berlatih secara bertahap demi penguasaan kompetensi utuh.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Menu 1: Belajar -->
-                <div onclick="openMenu('belajar')" class="group bg-cardbg hover:bg-darkslate border border-gold/30 hover:border-gold rounded-2xl p-6 cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full blur-2xl group-hover:bg-gold/10 transition-all"></div>
-                    <div>
-                        <div class="w-14 h-14 rounded-2xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-2xl mb-4 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-book-open"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-gold-light transition-colors">1. BELAJAR</h3>
-                        <p class="text-gray-400 text-xs leading-relaxed mb-6">7 Slide mendalam tentang wacana "الدراسة في الجامعة", Fi'il Mudhari' (Marfu', Manshub, Majzum), integrasi ayat Al-Qur'an, konteks Gorontalo & Global, serta KBC.</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-semibold text-gold">
-                        <span>Status: <span id="status-belajar" class="text-green-400 font-bold">TERBUKA 🔓</span></span>
-                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                    </div>
-                </div>
-
-                <!-- Menu 2: Bermain -->
-                <div id="card-bermain" onclick="tryOpenMenu('bermain')" class="group bg-cardbg/80 border border-gray-800 rounded-2xl p-6 cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between relative overflow-hidden opacity-70">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl"></div>
-                    <div>
-                        <div id="icon-bermain" class="w-14 h-14 rounded-2xl bg-gray-800 border border-gray-700 flex items-center justify-center text-gray-400 text-2xl mb-4">
-                            <i class="fa-solid fa-gamepad"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">2. BERMAIN</h3>
-                        <p class="text-gray-400 text-xs leading-relaxed mb-6">10 Tantangan gamifikasi dengan stimulus literasi & numerasi (100–200 kata) mekanik menjodohkan, analisis kontekstual, dan pilihan ganda interaktif.</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-semibold text-gray-400">
-                        <span>Status: <span id="status-bermain-text" class="text-yellow-500 font-bold">TERKUNCI 🔒</span></span>
-                        <i class="fa-solid fa-lock" id="lock-bermain"></i>
-                    </div>
-                </div>
-
-                <!-- Menu 3: Berlatih -->
-                <div id="card-berlatih" onclick="tryOpenMenu('berlatih')" class="group bg-cardbg/80 border border-gray-800 rounded-2xl p-6 cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between relative overflow-hidden opacity-70">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl"></div>
-                    <div>
-                        <div id="icon-berlatih" class="w-14 h-14 rounded-2xl bg-gray-800 border border-gray-700 flex items-center justify-center text-gray-400 text-2xl mb-4">
-                            <i class="fa-solid fa-award"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">3. BERLATIH</h3>
-                        <p class="text-gray-400 text-xs leading-relaxed mb-6">10 Soal asesmen berjenjang formal (Level 1 Pemahaman, Level 2 Aplikasi, Level 3 HOTS) berbobot total 100 poin dengan laporan PDF instan.</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-semibold text-gray-400">
-                        <span>Status: <span id="status-berlatih-text" class="text-yellow-500 font-bold">TERKUNCI 🔒</span></span>
-                        <i class="fa-solid fa-lock" id="lock-berlatih"></i>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. LAYER MENU 1: BELAJAR -->
-        <section id="view-belajar" class="flex-1 flex flex-col p-4 md:p-8 max-w-4xl mx-auto w-full hidden">
-            <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800">
-                <button onclick="backToDashboard()" class="px-4 py-2 bg-darkslate hover:bg-gray-800 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2">
-                    <i class="fa-solid fa-arrow-left"></i><span>Menu Utama</span>
-                </button>
-                <div class="text-center">
-                    <span id="belajar-slide-indicator" class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full font-bold">Slide 1 dari 7</span>
-                </div>
-                <div class="text-xs text-gray-400 font-medium">Modul Belajar</div>
-            </div>
-
-            <div id="belajar-slide-card" class="bg-cardbg border border-gold/30 rounded-2xl p-6 md:p-8 shadow-2xl flex-1 flex flex-col justify-between">
-                <div id="belajar-content-area" class="space-y-6"></div>
-
-                <div class="flex items-center justify-between pt-6 border-t border-gray-800 mt-8">
-                    <button id="belajar-prev-btn" onclick="prevBelajarSlide()" class="px-5 py-2.5 rounded-xl bg-darkslate hover:bg-gray-800 text-gray-300 text-xs font-medium transition-all disabled:opacity-30">
-                        <i class="fa-solid fa-arrow-left mr-2"></i> Sebelumnya
-                    </button>
-                    <button id="belajar-next-btn" onclick="nextBelajarSlide()" class="px-6 py-2.5 rounded-xl bg-gold hover:bg-gold-light text-pearl text-xs font-bold transition-all shadow-md">
-                        Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. LAYER MENU 2: BERMAIN -->
-        <section id="view-bermain" class="flex-1 flex flex-col p-4 md:p-8 max-w-4xl mx-auto w-full hidden">
-            <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800">
-                <button onclick="backToDashboard()" class="px-4 py-2 bg-darkslate hover:bg-gray-800 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2">
-                    <i class="fa-solid fa-arrow-left"></i><span>Menu Utama</span>
-                </button>
-                <div class="text-center">
-                    <span id="bermain-counter" class="text-xs bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full font-bold">Tantangan 1 dari 10</span>
-                </div>
-                <div id="bermain-score" class="text-xs font-bold text-gold">Skor: 0</div>
-            </div>
-
-            <div class="bg-cardbg border border-blue-500/30 rounded-2xl p-6 md:p-8 shadow-2xl flex-1 flex flex-col justify-between">
-                <div id="bermain-content-area" class="space-y-6"></div>
-            </div>
-        </section>
-
-        <!-- 7. LAYER MENU 3: BERLATIH -->
-        <section id="view-berlatih" class="flex-1 flex flex-col p-4 md:p-8 max-w-4xl mx-auto w-full hidden">
-            <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800">
-                <button onclick="playBtnClick(); backToDashboard()" class="px-4 py-2 bg-darkslate hover:bg-gray-800 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2">
-                    <i class="fa-solid fa-arrow-left"></i><span>Menu Utama</span>
-                </button>
-                <div class="text-center">
-                    <span id="berlatih-counter" class="text-xs bg-purple-500/10 text-purple-400 px-3 py-1 rounded-full font-bold">Soal Asesmen 1 dari 10</span>
-                </div>
-                <div id="berlatih-level-badge" class="text-xs font-bold bg-gold/10 text-gold px-3 py-1 rounded-full">Level 1: Dasar</div>
-            </div>
-
-            <div class="bg-cardbg border border-purple-500/30 rounded-2xl p-6 md:p-8 shadow-2xl flex-1 flex flex-col justify-between">
-                <div id="berlatih-content-area" class="space-y-6"></div>
-            </div>
-        </section>
-
-        <!-- 7.5 REFLEKSI PEMBELAJARAN PESERTA -->
-        <section id="view-reflection" class="flex-1 flex flex-col p-4 md:p-8 max-w-2xl mx-auto w-full hidden my-auto">
-            <div class="bg-cardbg border border-gold/40 rounded-2xl p-6 md:p-8 shadow-2xl space-y-6">
-                <div class="text-center space-y-2 border-b border-gray-800 pb-4">
-                    <div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 text-gold text-2xl flex items-center justify-center mx-auto mb-2">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white">Form Refleksi Pembelajaran Siswa</h3>
-                    <p class="text-xs text-gray-400">Silakan isi refleksi diri berikut secara jujur dan mendalam sebelum mengunduh Laporan Hasil Belajar PDF.</p>
-                </div>
-
-                <form id="reflection-form" onsubmit="handleReflectionSubmit(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">1. Apa yang telah Anda pelajari pada sesi ini?</label>
-                        <textarea id="ref-learned" required rows="2" placeholder="Contoh: Saya telah mempelajari struktur tata bahasa Fi'il Mudhari' Marfu', Manshub, dan Majzum dalam wacana perkuliahan..." class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none transition-all"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">2. Apa hal paling berharga yang telah Anda ketahui?</label>
-                        <textarea id="ref-known" required rows="2" placeholder="Contoh: Pentingnya huruf nashab seperti 'an' dan 'lan' dalam mengubah makna serta pentingnya menuntut ilmu..." class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none transition-all"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">3. Di mana dan bagaimana Anda bisa menerapkan pembelajaran ini?</label>
-                        <textarea id="ref-apply" required rows="2" placeholder="Contoh: Saya bisa menerapkannya saat menyusun esai akademis bahasa Arab dan berkomunikasi..." class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none transition-all"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-pearl font-bold py-3.5 rounded-xl hover:brightness-110 transition-all shadow-lg text-xs mt-2">
-                        Simpan Refleksi & Lihat Laporan PDF <i class="fa-solid fa-file-contract ml-2"></i>
-                    </button>
-                </form>
-            </div>
-        </section>
-
-        <!-- 8. LAPORAN HASIL BELAJAR PDF OTOMATIS -->
-        <section id="view-report" class="flex-1 flex flex-col p-4 md:p-8 max-w-4xl mx-auto w-full hidden">
-            <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800 print:hidden">
-                <button onclick="playBtnClick(); backToDashboard()" class="px-4 py-2 bg-darkslate hover:bg-gray-800 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2">
-                    <i class="fa-solid fa-arrow-left"></i><span>Menu Utama</span>
-                </button>
-                <h2 class="text-lg font-bold text-gold-light">Laporan Hasil Belajar Siswa (KBC)</h2>
-                <button onclick="playBtnClick(); downloadPDF()" class="px-5 py-2.5 bg-gradient-to-r from-gold-dark via-gold to-gold-light text-pearl font-bold rounded-xl text-xs flex items-center space-x-2 shadow-lg hover:brightness-110">
-                    <i class="fa-solid fa-file-pdf"></i><span>Unduh / Cetak PDF</span>
-                </button>
-            </div>
-
-            <!-- Printable Report Sheet -->
-            <div id="report-printable-area" class="bg-white text-gray-900 rounded-2xl p-8 shadow-2xl max-w-3xl mx-auto w-full space-y-6">
-                <div class="border-b-2 border-gold pb-4 flex items-center justify-between">
-                    <div>
-                        <h3 class="text-base font-bold text-pearl">KEMENTERIAN AGAMA REPUBLIK INDONESIA</h3>
-                        <h4 class="text-sm font-semibold text-gray-800">MADRASAH ALIYAH SWASTA (MAS) HUBULO GORONTALO</h4>
-                        <p class="text-[11px] text-gray-500">Media Pembelajaran Interaktif Bahasa Arab Fase F (Kelas XII) • Topik: الدراسة في الجامعة</p>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold">KBC Kemenag RI</span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl text-xs">
-                    <div>
-                        <p class="font-bold text-gray-500">NAMA SISWA PESERTA:</p>
-                        <p id="rep-student-name" class="text-base font-bold text-pearl">Muhammad Al Fatih</p>
-                        <p class="font-bold text-gray-500 mt-2">KELAS / ROMBEL:</p>
-                        <p id="rep-student-class" class="text-sm font-semibold text-pearl">Kelas XII IPA (Fase F)</p>
-                    </div>
-                    <div>
-                        <p class="font-bold text-gray-500">PENGEMBANG / GURU PENGAMPU:</p>
-                        <p class="text-sm font-bold text-pearl">Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr.</p>
-                        <p class="font-bold text-gray-500 mt-[2px]">ASAL MADRASAH: <span class="font-normal text-gray-700">MAS Hubulo</span></p>
-                        <p class="font-bold text-gray-500 mt-2">WAKTU PENGERJAAN:</p>
-                        <p id="rep-timestamp" class="text-xs text-gray-700">-</p>
-                    </div>
-                </div>
-
-                <div class="space-y-3">
-                    <h4 class="text-xs font-bold text-pearl uppercase tracking-wider border-l-4 border-gold pl-2">Rekapitulasi Performa Pembelajaran</h4>
-                    <div class="grid grid-cols-3 gap-4 text-center">
-                        <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl">
-                            <p class="text-[11px] text-gray-600 font-medium">Skor Menjawab Bermain</p>
-                            <p id="rep-bermain-score" class="text-xl font-bold text-amber-700">0 / 10</p>
-                        </div>
-                        <div class="bg-purple-50 border border-purple-200 p-3 rounded-xl">
-                            <p class="text-[11px] text-gray-600 font-medium">Nilai Asesmen Berlatih</p>
-                            <p id="rep-berlatih-score" class="text-xl font-bold text-purple-700">0 / 100</p>
-                        </div>
-                        <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
-                            <p class="text-[11px] text-gray-600 font-medium">Predikat Akhir</p>
-                            <p id="rep-predikat" class="text-lg font-bold text-emerald-700">-</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-3 text-xs">
-                    <h4 class="text-xs font-bold text-pearl uppercase tracking-wider border-l-4 border-gold pl-2">Hasil Refleksi Diri Peserta</h4>
-                    <div class="bg-amber-50/60 border border-amber-200 p-4 rounded-xl space-y-2 text-gray-800">
-                        <p><strong>1. Apa yang dipelajari:</strong> <span id="rep-ref-learned" class="italic text-gray-700">-</span></p>
-                        <p><strong>2. Hal yang diketahui:</strong> <span id="rep-ref-known" class="italic text-gray-700">-</span></p>
-                        <p><strong>3. Penerapan pembelajaran:</strong> <span id="rep-ref-apply" class="italic text-gray-700">-</span></p>
-                    </div>
-                </div>
-
-                <div class="space-y-3 text-xs">
-                    <h4 class="text-xs font-bold text-pearl uppercase tracking-wider border-l-4 border-gold pl-2">Analisis Kompetensi & Kurikulum Berbasis Cinta (KBC)</h4>
-                    <div class="bg-gray-50 p-4 rounded-xl space-y-2 text-gray-700 leading-relaxed">
-                        <p><strong>Penguasaan Asesmen Berjenjang:</strong> Siswa telah melalui asesmen berjenjang mencakup Level 1 (Dasar), Level 2 (Aplikasi & Penerapan), dan Level 3 (HOTS & Penalaran Wacana *الدراسة في الجامعة*).</p>
-                        <p><strong>Refleksi Kurikulum Berbasis Cinta (KBC Kemenag RI):</strong> Menunjukkan apresiasi tinggi terhadap pencarian ilmu (*cinta ilmu*), kesadaran moderasi beragama, kepedulian sosial (*cinta sesama*), serta semangat kontribusi membangun negeri (*cinta tanah air*) yang terintegrasi dalam pemahaman kaidah *Al-Fi'lu Al-Mudhari' (المرفوع، المنصوب، المجزوم)*.</p>
-                        <p><strong>Rekomendasi Guru Pengampu:</strong> Teruslah mengasah keterampilan literasi baca dan analisis tata bahasa Arab secara konsisten dalam kehidupan akademik sehari-hari.</p>
-                    </div>
-                </div>
-
-                <div class="pt-6 border-t border-gray-200 flex justify-between items-end text-xs">
-                    <div>
-                        <p class="text-gray-500">Disahkan oleh Guru Pengampu:</p>
-                        <p class="font-bold text-pearl mt-1">MAS Hubulo Gorontalo</p>
-                        <div class="h-12"></div>
-                        <p class="font-bold text-pearl underline">Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr.</p>
-                        <p class="text-[10px] text-gray-500">NIP/NPU: amiruliqbal.hubulo@gmail.com</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-gray-500">Gorontalo, <span id="rep-current-date">2026</span></p>
-                        <p class="font-bold text-pearl mt-1">Siswa Peserta</p>
-                        <div class="h-12"></div>
-                        <p id="rep-sign-name" class="font-bold text-pearl underline">[ Nama Siswa ]</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER RUNNING TEXT -->
-    <footer class="fixed bottom-0 left-0 right-0 bg-darkslate/95 border-t border-gold/30 py-1.5 px-4 z-40 text-xs overflow-hidden">
-        <div class="whitespace-nowrap flex items-center animate-[marquee_25s_linear_infinite]" id="marquee-text-container">
-            <span class="text-gold font-bold mr-6"><i class="fa-solid fa-graduation-cap mr-1"></i> Mata Pelajaran: Bahasa Arab (Fase F / Kelas XII)</span>
-            <span class="text-gray-300 mr-6">• Pengembang: <strong class="text-gold-light">Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr.</strong></span>
-            <span class="text-gray-300 mr-6">• Instansi: <strong class="text-gold-light">MAS Hubulo Gorontalo</strong></span>
-            <span class="text-gray-300 mr-6">• Peserta: <strong id="ticker-student-name" class="text-gold-light">Belum Terdaftar</strong></span>
-            <span class="text-emerald-400 font-bold mr-6">• Skor Bermain: <span id="ticker-bermain-score">0/10</span></span>
-            <span class="text-purple-400 font-bold mr-6">• Nilai Berlatih: <span id="ticker-berlatih-score">0/100</span></span>
-            <span class="text-gold font-bold mr-6"><i class="fa-solid fa-heart text-red-400 mr-1"></i> Kurikulum Berbasis Cinta (KBC) Kemenag RI</span>
-        </div>
-    </footer>
-</div>
-
-<!-- Keyframe Animation for Marquee Ticker -->
-<style>
-    @keyframes marquee {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
-    }
-</style>
-
-<!-- FLOATING MODALS -->
-<!-- Modal Pengembang -->
-<div id="modal-developer" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-cardbg border border-gold/40 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
-        <button onclick="closeModal('modal-developer')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
-        <div class="flex flex-col items-center text-center">
-            <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-gold-dark via-gold to-gold-light mb-4 shadow-xl relative overflow-hidden">
-                <img src="https://www.instagram.com/p/BMX_QCwAAwX/" alt="Amirul Iqbal" class="w-full h-full object-cover rounded-full" onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';">
-                <div id="avatar-fallback" class="w-full h-full rounded-full bg-pearl text-gold font-bold text-2xl items-center justify-center hidden absolute inset-0">AI</div>
-            </div>
-            <h3 class="text-base font-bold text-white mb-1">Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr.</h3>
-            <span class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full font-semibold mb-3">Pengembang & Pakar Kurikulum</span>
-            <p class="text-xs text-gray-300 mb-4">Asal Madrasah: <strong class="text-gold-light">MAS Hubulo</strong></p>
-            <div class="bg-pearl/60 border border-gray-800 rounded-xl p-3 w-full text-xs text-gray-400 space-y-1.5 text-left">
-                <p><i class="fa-solid fa-envelope text-gold mr-2"></i> <strong>Email:</strong> amiruliqbal.hubulo@gmail.com</p>
-                <p><i class="fa-solid fa-award text-gold mr-2"></i> <strong>Keahlian:</strong> Instructional Design & KBC Kemenag RI</p>
-                <p><i class="fa-solid fa-location-dot text-gold mr-2"></i> <strong>Wilayah:</strong> MAS Hubulo, Gorontalo</p>
-            </div>
-            <button onclick="closeModal('modal-developer')" class="mt-6 w-full bg-darkslate hover:bg-gray-800 border border-gold/30 text-gold py-2.5 rounded-xl font-medium text-xs transition-all">Tutup Informasi</button>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Objectives -->
-<div id="modal-objectives" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-cardbg border border-gold/40 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-        <button onclick="closeModal('modal-objectives')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
-        <div class="space-y-4">
-            <div class="flex items-center space-x-3 border-b border-gray-800 pb-3">
-                <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-lg">
-                    <i class="fa-solid fa-bullseye"></i>
-                </div>
-                <div>
-                    <h3 class="text-base font-bold text-white">Tujuan Pembelajaran & KBC</h3>
-                    <p class="text-xs text-gold">Fase F • Kelas XII Madrasah Aliyah</p>
-                </div>
-            </div>
-            <div class="text-xs text-gray-300 space-y-3 leading-relaxed">
-                <p><strong>Capaian Pembelajaran (CP):</strong> Murid mampu mengidentifikasi, memahami, dan menganalisis kosakata dan isi wacana prosedur lisan maupun tulisan tentang tema Studi di Perguruan Tinggi (<span class="arabic-text text-sm text-gold-light">الدراسة في الجامعة</span>) yang menggunakan <span class="arabic-text text-sm text-gold-light">الفعل المضارع المرفوع والمنصوب والمجزوم</span> dalam kalimat atau paragraf dengan baik.</p>
-                <div class="bg-pearl p-3.5 rounded-xl border border-gray-800 space-y-1">
-                    <p class="text-gold font-bold text-xs"><i class="fa-solid fa-book-quran mr-1"></i> Ayat Al-Qur'an Tematik (QS. Al-Mujadilah: 11):</p>
-                    <p class="arabic-text text-base text-gold-light text-right">يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنْكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ</p>
-                    <p class="text-[11px] text-gray-400">"Allah akan meninggikan orang-orang yang beriman di antaramu dan orang-orang yang diberi ilmu pengetahuan beberapa derajat."</p>
-                </div>
-                <div class="bg-pearl p-3.5 rounded-xl border border-gray-800 space-y-1">
-                    <p class="text-gold font-bold text-xs"><i class="fa-solid fa-heart mr-1"></i> Kurikulum Berbasis Cinta (KBC Kemenag RI):</p>
-                    <p class="text-[11px] text-gray-400">Menanamkan cinta ilmu, kasih sayang sesama manusia, kesadaran moderasi beragama, dan cinta tanah air dalam menuntut ilmu hingga jenjang perguruan tinggi.</p>
-                </div>
-            </div>
-            <button onclick="closeModal('modal-objectives')" class="w-full bg-darkslate hover:bg-gray-800 border border-gold/30 text-gold py-2.5 rounded-xl font-medium text-xs transition-all">Kembali</button>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Warning Terkunci -->
-<div id="modal-alert" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-cardbg border border-red-500/40 rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl space-y-4">
-        <div class="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 text-2xl mx-auto">
-            <i class="fa-solid fa-lock"></i>
-        </div>
-        <h3 class="text-base font-bold text-white" id="alert-title">Menu Terkunci!</h3>
-        <p class="text-xs text-gray-400 leading-relaxed" id="alert-msg">Selesaikan tahapan belajar sebelumnya untuk membuka kunci menu ini.</p>
-        <button onclick="closeModal('modal-alert')" class="w-full bg-gold hover:bg-gold-light text-pearl font-bold py-2.5 rounded-xl text-xs transition-all">Paham, Saya Mengerti</button>
-    </div>
-</div>
-
-<!-- JAVASCRIPT LOGIC & GAS INTEGRATION -->
-<script>
-    // =========================================================================
-    // DEKLARASI TAUTAN GOOGLE APPS SCRIPT WEB APP (GAS_URL)
-    // Ganti string di bawah dengan URL Web App Anda setelah di-deploy
-    // =========================================================================
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwzJl3FksdmjJFdnr9ABCCA3R2PXgkzPM5lJehTLy5r8SwU6gsLfKTHhMD_KLnf9jTe/exec";
-
-    // --- State Management ---
-    let studentName = "";
-    let studentClass = "";
-    let currentGuideStep = 0;
-    let currentBelajarSlide = 0;
-    let currentBermainIndex = 0;
-    let currentBerlatihIndex = 0;
-    
-    let unlockedBermain = false;
-    let unlockedBerlatih = false;
-
-    let belajarCompletedSlides = [false, false, false, false, false, false, false];
-    let bermainAnswers = {};
-    let berlatihAnswers = {};
-    let bermainScore = 0;
-    let totalBerlatihScore = 0;
-
-    let userReflection = { learned: "", known: "", apply: "" };
-    let isDarkMode = true;
-
-    // --- Audio Synthesizer Engine ---
-    let isAudioEnabled = false;
-    let isBacksoundPlaying = false;
-    let synth, polySynth;
-    let loopBgm;
-
-    function initAudioEngine() {
-        if (synth) return;
-        try {
-            Tone.start();
-            synth = new Tone.Synth().toDestination();
-            polySynth = new Tone.PolySynth(Tone.Synth).toDestination();
-            polySynth.volume.value = -12;
-            
-            const notes = ["C3", "E3", "G3", "B3", "A3", "F3"];
-            let step = 0;
-            loopBgm = new Tone.Loop(time => {
-                if (isBacksoundPlaying) {
-                    polySynth.triggerAttackRelease(notes[step % notes.length], "8n", time, 0.2);
-                    step++;
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدراسة في الجامعة - Media Pembelajaran Interaktif Bahasa Arab Kelas XII</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Amiri for Arabic Typographic Excellence -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2pdf.js for Client-Side PDF Report Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Tone.js for Native Audio Synthesizer Sound Effects & Ambient Backsound -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pearl: '#0f1115',
+                        gold: {
+                            light: '#f3e5ab',
+                            DEFAULT: '#d4af37',
+                            dark: '#aa820a'
+                        },
+                        cardbg: '#181b22',
+                        darkslate: '#1e222d'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        amiri: ['Amiri', 'serif']
+                    }
                 }
-            }, "4n");
-            Tone.Transport.bpm.value = 75;
-            Tone.Transport.start();
-            loopBgm.start(0);
-            isAudioEnabled = true;
-        } catch (e) {
-            console.log("Audio Init Warning:", e);
-        }
-    }
-
-    function toggleBacksound() {
-        initAudioEngine();
-        isBacksoundPlaying = !isBacksoundPlaying;
-        const icon = document.getElementById('audio-icon');
-        if (isBacksoundPlaying) {
-            icon.className = "fa-solid fa-volume-high text-sm text-gold";
-        } else {
-            icon.className = "fa-solid fa-music text-sm opacity-50";
-        }
-    }
-
-    function playBtnClick() {
-        if (!isAudioEnabled) initAudioEngine();
-        try { if (synth) synth.triggerAttackRelease("C5", "32n"); } catch (e) {}
-    }
-    function playSessionSwitch() {
-        if (!isAudioEnabled) initAudioEngine();
-        try { if (polySynth) polySynth.triggerAttackRelease(["C4", "G4", "C5"], "16n"); } catch (e) {}
-    }
-    function playCorrectSound() {
-        if (!isAudioEnabled) initAudioEngine();
-        try { if (polySynth) polySynth.triggerAttackRelease(["E5", "G5", "C6"], "8n"); } catch (e) {}
-    }
-    function playWrongSound() {
-        if (!isAudioEnabled) initAudioEngine();
-        try { if (synth) synth.triggerAttackRelease("F3", "8n"); } catch (e) {}
-    }
-    function playCompletionSound() {
-        if (!isAudioEnabled) initAudioEngine();
-        try {
-            if (polySynth) {
-                polySynth.triggerAttackRelease(["C4", "E4", "G4", "C5"], "4n");
-                setTimeout(() => polySynth.triggerAttackRelease(["G4", "B4", "D5", "G5"], "2n"), 300);
-            }
-        } catch (e) {}
-    }
-
-    function toggleTheme() {
-        playBtnClick();
-        isDarkMode = !isDarkMode;
-        const body = document.body;
-        const themeIcon = document.getElementById('theme-icon');
-
-        if (!isDarkMode) {
-            body.classList.add('light-mode');
-            body.classList.remove('bg-pearl', 'text-gray-100');
-            body.classList.add('bg-gray-100', 'text-gray-900');
-            themeIcon.className = "fa-solid fa-sun text-sm text-yellow-500";
-        } else {
-            body.classList.remove('light-mode', 'bg-gray-100', 'text-gray-900');
-            body.classList.add('bg-pearl', 'text-gray-100');
-            themeIcon.className = "fa-solid fa-moon text-sm text-gold";
-        }
-    }
-
-    // Data Guide Steps
-    const guideSteps = [
-        {
-            title: "Selamat Datang di Portal Pembelajaran Bahasa Arab",
-            content: "Media Pembelajaran Interaktif (MPI) ini dirancang khusus oleh Pengembang <strong>Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr. (MAS Hubulo)</strong> untuk siswa Madrasah Aliyah Kelas XII (Fase F) dalam menguasai topik <strong>الدراسة في الجامعة</strong> (Studi di Perguruan Tinggi) secara mendalam, berbasis Kurikulum Berbasis Cinta (KBC Kemenag RI)."
-        },
-        {
-            title: "Alur Pembelajaran Terkunci Bertahap (3 Level)",
-            content: "Sistem mengadopsi prinsip ketuntasan belajar bertahap: <br>1. <strong>Menu Belajar:</strong> 7 Slide materi interaktif.<br>2. <strong>Menu Bermain:</strong> 10 tantangan literasi & numerasi gamifikasi.<br>3. <strong>Menu Berlatih:</strong> 10 soal asesmen berjenjang.<br>Setiap tahap wajib diselesaikan untuk membuka kunci menu berikutnya secara otomatis."
-        },
-        {
-            title: "Kurikulum Berbasis Cinta & Integration Spreadsheet",
-            content: "Setiap materi mengintegrasikan nilai cinta ilmu, kasih sayang sesama, moderasi beragama, dan wawasan wilayah. Seluruh hasil pengerjaan Anda akan terkirim secara otomatis ke Database Google Sheets guru."
-        }
-    ];
-
-    // 7 Slide Belajar
-    const belajarSlides = [
-        {
-            title: "Slide 1: Pengantar Wacana الدراسة في الجامعة",
-            arabicHeader: "الْتَحَقَ أَحْمَدُ بِالْجَامِعَةِ لِيَتَخَصَّصَ فِي التَّرْبِيَةِ الإِسْلَامِيَّةِ.",
-            content: "Pendidikan tinggi merupakan gerbang emas pengabdian intelektual. Di Provinsi Gorontalo, perguruan tinggi unggulan seperti IAIN Sultan Amai dan UNG menjadi pusat pengembangan peradaban. Mari kita cermati wacana kehidupan kampus dengan kaidah tata bahasa Arab yang sahih.",
-            kbc: "KBC: Menumbuhkan cinta ilmu setinggi langit sebagai wujud rasa syukur atas nikmat akal dari Allah SWT.",
-            quran: {
-                arabic: "قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ",
-                surah: "QS. Az-Zumar: 9",
-                trans: "Katakanlah: 'Apakah sama orang-orang yang mengetahui dengan orang-orang yang tidak mengetahui?'"
-            },
-            question: {
-                text: "Manakah terjemahan yang paling tepat untuk kalimat: 'الْتَحَقَ أَحْمَدُ بِالْجَامِعَةِ'?",
-                options: [
-                    "A. Ahmad pergi berkunjung ke perpustakaan kampus.",
-                    "B. Ahmad masuk / bergabung ke perguruan tinggi.",
-                    "C. Ahmad telah lulus dari madrasah aliyah."
-                ],
-                correct: 1
-            }
-        },
-        {
-            title: "Slide 2: Konsep Dasar Al-Fi'lu Al-Mudhari' Al-Marfu'",
-            arabicHeader: "يَدْرُسُ الطَّالِبُ فِي الْجَامِعَةِ بِجِدٍّ وَنَشَاطٍ.",
-            content: "Fi'il Mudhari' Marfu' adalah kata kerja yang menunjukkan pekerjaan sedang atau akan dilakukan, dan huruf akhirnya berbaris dammah karena tidak didahului oleh huruf nashab atau jazim. Contoh: يَدْرُسُ (ia sedang belajar).",
-            kbc: "KBC: Kesungguhan belajar (jiddun) di bangku kuliah adalah bentuk cinta tanah air dalam mempersiapkan SDM unggul.",
-            quran: {
-                arabic: "يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنْكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ",
-                surah: "QS. Al-Mujadilah: 11",
-                trans: "Allah akan meninggikan orang-orang yang beriman di antaramu dan orang-orang yang diberi ilmu pengetahuan beberapa derajat."
-            },
-            question: {
-                text: "Apa tanda i'rab marfu' pada kata 'يَدْرُسُ' dalam kalimat di atas?",
-                options: [
-                    "A. Fathah di akhir kata",
-                    "B. Kasrah di akhir kata",
-                    "C. Dammah di akhir kata"
-                ],
-                correct: 2
-            }
-        },
-        {
-            title: "Slide 3: Fi'il Mudhari' Al-Manshub (Huruf Nashab)",
-            arabicHeader: "أُريدُ أَنْ أَدْرُسَ اللُّغَةَ الْعَرَبِيَّةَ فِي مِصْرَ.",
-            content: "Fi'il Mudhari' menjadi Manshub ketika didahului oleh huruf nashab (أَنْ، لَنْ، إِذَنْ، لِـ). Tanda nashabnya adalah fathah pada huruf sahih. Contoh: أَنْ أَدْرُسَ. Mesir dengan Universitas Al-Azhar di Kairo menjadi destinasi utama mahasiswa global.",
-            kbc: "KBC: Semangat merantau menuntut ilmu melatih ketangguhan mental dan persaudaraan global (ukhuwah Islamiyah).",
-            quran: {
-                arabic: "وَما تَدْرِي نَفْسٌ ماذا تَكْسِبُ غَداً",
-                surah: "QS. Luqman: 34",
-                trans: "Dan tiada seorang pun yang dapat mengetahui (dengan pasti) apa yang akan diusahakannya besok."
-            },
-            question: {
-                text: "Mengapa kata 'أَدْرُسَ' dibaca berbaris fathah (manshub)?",
-                options: [
-                    "A. Karena didahului huruf nashab 'أَنْ'",
-                    "B. Karena didahului huruf jazim 'لَمْ'",
-                    "C. Karena merupakan kata benda abstrak"
-                ],
-                correct: 0
-            }
-        },
-        {
-            title: "Slide 4: Eksplorasi Akademik & Perbandingan Global",
-            arabicHeader: "لَنْ يَرْسَبَ الطَّالِبُ الْمُجْتَهِدُ فِي إِخْتِبَارَاتِهِ.",
-            content: "Dalam menyusun target studi, penggunaan 'لَنْ' (sekali-kali tidak akan) menegaskan penolakan di masa depan. Perbandingan akademik antara universitas di Saudi Arabia dan Inggris menunjukkan pentingnya penguasaan multi-bahasa.",
-            kbc: "KBC: Menghargai keragaman budaya dunia dengan tetap memegang teguh identitas keimanan dan akhlak mulia.",
-            quran: {
-                arabic: "اقْرَأْ وَرَبُّكَ الْأَكْرَمُ",
-                surah: "QS. Al-Alaq: 3",
-                trans: "Bacalah, dan Tuhanmulah Yang Maha Pemurah."
-            },
-            question: {
-                text: "Apa arti dari partikel 'لَنْ' dalam kalimat 'لَنْ يَرْسَبَ'?",
-                options: [
-                    "A. Belum pernah terjadi",
-                    "B. Sekali-kali tidak akan",
-                    "C. Mudah-mudahan terjadi"
-                ],
-                correct: 1
-            }
-        },
-        {
-            title: "Slide 5: Fi'il Mudhari' Al-Majzum (Huruf Jazim)",
-            arabicHeader: "لَمْ يَحْضُرْ أَحْمَدُ إِلَى الْمُحَاضَرَةِ أَمْسِ.",
-            content: "Fi'il Mudhari' menjadi Majzum apabila didahului oleh huruf jazim seperti لَمْ (belum/tidak), لَا النَّهْيِيَّة (jangan), atau لَامُ الْأَمْر. Tandanya adalah sukun pada huruf akhir sahih. Contoh: لَمْ يَحْضُرْ.",
-            kbc: "KBC: Disiplin waktu dan kehadiran dalam majelis ilmu adalah cerminan kecintaan kepada proses pembelajaran.",
-            quran: {
-                arabic: "لَمْ يَلِدْ وَلَمْ يُولَدْ",
-                surah: "QS. Al-Ikhlas: 3",
-                trans: "Dia tiada beranak dan tidak pula diperanakkan."
-            },
-            question: {
-                text: "Apa tanda i'rab jazim pada kata 'يَحْضُرْ' setelah huruf لَمْ?",
-                options: [
-                    "A. Sukun",
-                    "B. Fathah",
-                    "C. Dammah"
-                ],
-                correct: 0
-            }
-        },
-        {
-            title: "Slide 6: Larangan & Perintah dalam Dunia Kampus",
-            arabicHeader: "لَا تَتَكَاسَلْ فِي طَلَبِ الْعِلْمِ النَّافِعِ!",
-            content: "Penggunaan 'لَا' an-nahiyah (jangan) menjazamkan fi'il mudhari', seperti 'لَا تَتَكَاسَلْ'. Mahasiswa dituntut proaktif, berpikir kritis, serta menjaga kelestarian lingkungan kampus (Eco-Campus).",
-            kbc: "KBC: Menjaga kebersihan dan penghijauan lingkungan kampus sebagai wujud cinta alam ciptaan Allah SWT.",
-            quran: {
-                arabic: "وَلَا تَبْسُطْها كُلَّ الْبَسْطِ فَتَقْعُدَ مَلُوماً مَحْسُوراً",
-                surah: "QS. Al-Isra: 29",
-                trans: "Dan janganlah kamu jadikan tanganmu terbelenggu pada lehermu..."
-            },
-            question: {
-                text: "Apa fungsi dari 'لَا' dalam kalimat 'لَا تَتَكَاسَلْ'?",
-                options: [
-                    "A. La Nafiyah (penolakan berita)",
-                    "B. La Nahiyah (larangan tegas)",
-                    "C. La 'Atifah (kata sambung)"
-                ],
-                correct: 1
-            }
-        },
-        {
-            title: "Slide 7: Rangkuman Sintaksis & Persiapan Ujian",
-            arabicHeader: "الْعِلْمُ نُورٌ وَالْجَهْلُ ظَلَامٌ.",
-            content: "Kita telah mempelajari tiga keadaan I'rab Fi'il Mudhari': Marfu' (asal/dammah), Manshub (didahului أَنْ, لَنْ), dan Majzum (didahului لَمْ, لَا). Pemahaman ini mengokohkan kemampuan literasi teks Arab tingkat lanjut.",
-            kbc: "KBC: Niatkan menuntut ilmu semata-mata mencari keridaan Allah dan memberikan manfaat seluas-luasnya.",
-            quran: {
-                arabic: "وَقُلْ رَبِّ زِدْنِي عِلْماً",
-                surah: "QS. Taha: 114",
-                trans: "Dan katakanlah: 'Ya Tuhanku, tambahkanlah kepadaku ilmu pengetahuan.'"
-            },
-            question: {
-                text: "Manakah rangkuman yang benar mengenai huruf-huruf jazim?",
-                options: [
-                    "A. أَنْ، لَنْ، كَيْ",
-                    "B. لَمْ، لَا النَّهْيِيَّة، لَامُ الْأَمْر",
-                    "C. فِي، إِلَى، عَلَى"
-                ],
-                correct: 1
             }
         }
-    ];
+    </script>
+    <style>
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+            line-height: 1.8;
+        }
+        /* Immersive EdTech Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1115;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f3e5ab;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 35px rgba(212, 175, 55, 0.7); }
+        }
+        .glow-gold {
+            animation: pulseGlow 3s infinite;
+        }
+        /* AI Campus Animation Keyframes */
+        @keyframes floatNodes {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+        }
+        @keyframes pulseAiGrid {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.35; }
+        }
+        .animate-float {
+            animation: floatNodes 4s ease-in-out infinite;
+        }
+        .animate-ai-grid {
+            animation: pulseAiGrid 2.5s ease-in-out infinite;
+        }
+        /* Accessible light theme overrides */
+        body.light-mode { background:#f3f4f6 !important; color:#111827 !important; }
+        body.light-mode .bg-cardbg, body.light-mode .bg-pearl, body.light-mode .bg-darkslate { background-color:#ffffff !important; }
+        body.light-mode .text-white, body.light-mode .text-gray-100, body.light-mode .text-gray-200,
+        body.light-mode .text-gray-300 { color:#1f2937 !important; }
+        body.light-mode .text-gray-400, body.light-mode .text-gray-500 { color:#4b5563 !important; }
+        body.light-mode .border-gray-700, body.light-mode .border-gray-800 { border-color:#d1d5db !important; }
+        body.light-mode input, body.light-mode select, body.light-mode textarea { background:#fff !important; color:#111827 !important; border-color:#cbd5e1 !important; }
+        body.light-mode header, body.light-mode footer { background:rgba(255,255,255,.96) !important; }
+        body.light-mode #view-cover h1 { color:#111827 !important; }
+        body.light-mode .bg-pearl\/60 { background-color:#f8fafc !important; }
+    </style>
+</head>
+<body class="bg-pearl text-gray-100 font-sans h-full flex flex-col overflow-x-hidden selection:bg-gold selection:text-pearl transition-colors duration-300 dark:bg-pearl dark:text-gray-100">
 
-    // 10 Tantangan Bermain
-    const bermainChallenges = [
-        { id: 1, stimulus: "Studi kasus di Universitas Al-Azhar Kairo...", question: "Berdasarkan stimulus di atas, apa fungsi dari partikel 'أَنْ' sebelum kata 'أَتَخَصَّصَ'?", options: ["A. Menjazamkan dengan sukun", "B. Menashabkan dengan fathah", "C. Merasmikan fi'il madhi", "D. Menjadikan kalimat tanya"], correct: 1 },
-        { id: 2, stimulus: "Perpustakaan Universitas Negeri Gorontalo (UNG)...", question: "Apa perubahan i'rab pada kata kerja setelah partikel 'لَمْ'?", options: ["A. Marfu' dengan dammah", "B. Manshub dengan fathah", "C. Majzum dengan sukun", "D. Mabni atas kasrah"], correct: 2 },
-        { id: 3, stimulus: "Dalam seminar internasional tentang KBC...", question: "Manakah analisis tata bahasa yang tepat untuk kalimat larangan 'لَا تَتَكَاسَلْ'?", options: ["A. 'لَا' nafiyah dan 'تَتَكَاسَلْ' marfu'", "B. 'لَا' nahiyah dan 'تَتَكَاسَلْ' majzum", "C. 'لَا' huruf jar", "D. 'لَا' kata sambung"], correct: 1 },
-        { id: 4, stimulus: "Statistik penerimaan mahasiswa baru...", question: "Apa tanda i'rab nashab pada kata 'يَجْتَهِدَ'?", options: ["A. Fathah zhahirah di akhir huruf", "B. Dammah di akhir huruf", "C. Kasrah di akhir huruf", "D. Sukun di akhir huruf"], correct: 0 },
-        { id: 5, stimulus: "Kisah inspiratif para ulama Nusantara...", question: "Apa makna dan fungsi partikel 'لَنْ' dalam kalimat 'لَنْ يَنَالَ'?", options: ["A. Menunjukkan harapan masa lalu", "B. Penolakan tegas di masa depan (sekali-kali tidak)", "C. Perintah tegas", "D. Pertanyaan ragu-ragu"], correct: 1 },
-        { id: 6, stimulus: "Diskusi kelompok ilmiah di MAS Hubulo...", question: "Apa status i'rab dari kata 'تُشَارِعُ' dalam kalimat tersebut?", options: ["A. Marfu' (keadaan asal)", "B. Manshub", "C. Majzum", "D. Majrur"], correct: 0 },
-        { id: 7, stimulus: "Dalam penulisan esai ilmiah berbahasa Arab...", question: "Mengapa huruf dal pada 'يَحْضُرِ' diberi harakat kasrah?", options: ["A. Karena huruf jar", "B. Mencegah iltiqaus sakinin (dua sukun)", "C. Berstatus manshub", "D. Tanda jamak"], correct: 1 },
-        { id: 8, stimulus: "Integrasi Kurikulum Berbasis Cinta...", question: "Manakah kata yang berstatus manshub dalam kutipan kuliah di atas?", options: ["A. يَنْبَغِي", "B. الطَّالِبِ", "C. يُسَاعِدَ", "D. زُمَلَاءَهُ"], correct: 2 },
-        { id: 9, stimulus: "Analisis numerasi dan data statistik alumni...", question: "Apa tanda jazim pada kata 'تُؤَخِّرْ'?", options: ["A. Sukun", "B. Fathah", "C. Dammah", "D. Kasrah"], correct: 0 },
-        { id: 10, stimulus: "Sebagai penutup rangkaian tantangan bermain...", question: "Berdasarkan materi, apa inti sari dari tema 'الدراسة في الجامعة'?", options: ["A. Sekadar mencari ijazah", "B. Pengembangan ilmu, penguasaan tata bahasa, dan pengabdian berlandaskan KBC", "C. Menghindari interaksi", "D. Belajar tanpa arah"], correct: 1 }
-    ];
+    <!-- 1. SPLASH SCREEN -->
+    <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-pearl transition-opacity duration-700">
+        <div class="relative mb-6">
+            <div class="absolute -inset-4 rounded-full bg-gold/20 blur-xl glow-gold"></div>
+            <div class="relative w-28 h-28 rounded-full bg-gradient-to-br from-gold-dark via-gold to-gold-light flex items-center justify-center text-pearl text-4xl shadow-2xl">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-bold text-gold-light tracking-wide mb-2 text-center px-4 arabic-text">الدراسة في الجامعة</h1>
+        <p class="text-gray-400 text-xs md:text-sm tracking-widest uppercase mb-6 text-center px-4">Media Pembelajaran Interaktif Bahasa Arab Fase F (Kelas XII)</p>
+        <div class="w-56 h-1.5 bg-gray-800 rounded-full overflow-hidden">
+            <div id="splash-progress" class="h-full bg-gold w-0 transition-all duration-1000"></div>
+        </div>
+        <p class="text-xs text-gray-500 mt-4">Kurikulum Berbasis Cinta (KBC) • Kemenag RI • MAS Hubulo</p>
+    </div>
 
-    // 10 Soal Asesmen Berlatih
-    const berlatihQuestions = [
-        { id: 1, level: "Level 1: Dasar / Pemahaman", bobot: 8, stimulus: "Dalam pengenalan kosakata perkuliahan...", question: "Manakah kalimat di bawah ini yang menggunakan Fi'il Mudhari' Marfu' dengan benar?", options: ["A. لَمْ يَذْهَبْ طَالِبُ إِلَى الجَامِعَةِ", "B. يُريدُ الطَّالِبُ أَنْ يَنْجَحَ فِي الِاخْتِبَارِ", "C. يَحْضُرُ الأُسْتَاذُ المحَاضَرَةَ بِنَشَاطٍ", "D. لَنْ يَرْسَبَ المُجْتَهِدُ أَبَداً"], correct: 2 },
-        { id: 2, level: "Level 1: Dasar / Pemahaman", bobot: 8, stimulus: "Huruf nashab dalam tata bahasa Arab...", question: "Manakah pasangan huruf nashab dan fi'il mudhari' manshub yang tepat?", options: ["A. لَمْ يَحْضُرْ", "B. أَنْ أَدْرُسَ", "C. لَا تَتَكَاسَلْ", "D. هُوَ يَكْتُبُ"], correct: 1 },
-        { id: 3, level: "Level 1: Dasar / Pemahaman", bobot: 8, stimulus: "Huruf jazim seperti 'لَمْ'...", question: "Apa tanda i'rab pada fi'il mudhari' yang didahului oleh huruf jazim 'لَمْ'?", options: ["A. Sukun", "B. Fathah", "C. Dammah", "D. Kasrah"], correct: 0 },
-        { id: 4, level: "Level 2: Sedang / Aplikasi", bobot: 10, stimulus: "Studi kasus di Universitas Al-Azhar...", question: "Bagaimana status i'rab dan tanda pada kata 'يَتَفَقَّهَ'?", options: ["A. Marfu' dammah muqaddarah", "B. Manshub fathah zhahirah", "C. Majzum buang huruf illat", "D. Majrur kasrah"], correct: 1 },
-        { id: 5, level: "Level 2: Sedang / Aplikasi", bobot: 10, stimulus: "Dalam merencanakan program pertukaran...", question: "Manakah analisis yang tepat mengenai struktur 'أَنْ نَتَعَلَّمَ'?", options: ["A. 'أَنْ' huruf jazim", "B. 'أَنْ' huruf nashab dan 'نَتَعَلَّمَ' manshub fathah", "C. 'أَنْ' harf jar", "D. 'أَنْ' harf istifham"], correct: 1 },
-        { id: 6, level: "Level 2: Sedang / Aplikasi", bobot: 10, stimulus: "Peringatan disiplin akademik...", question: "Apa fungsi partikel 'لَا' dan keadaan i'rab kata 'تَقْرَأْ'?", options: ["A. La Nafiyah dan marfu'", "B. La Nahiyah dan majzum sukun", "C. La Amri dan manshub", "D. La Zaidah"], correct: 1 },
-        { id: 7, level: "Level 2: Sedang / Aplikasi", bobot: 10, stimulus: "Statistik riset pendidikan...", question: "Bagaimana tanda i'rab marfu' pada kata 'يَحْضُرُونَ'?", options: ["A. Dammah zhahirah", "B. Tetapnya huruf Nun (ثبوت النون)", "C. Membuang Nun", "D. Sukun"], correct: 1 },
-        { id: 8, level: "Level 3: Tinggi / HOTS", bobot: 12, stimulus: "Analisis wacana tingkat lanjut...", question: "Manakah identifikasi i'rab yang tepat untuk 'يَسْتَطِعِ' dan 'يُكْمِلَ'?", options: ["A. 'يَسْتَطِعِ' majzum (kasrah iltiqaus sakinin), 'يُكْمِلَ' manshub fathah", "B. Keduanya marfu'", "C. Keduanya majzum sukun", "D. 'يَسْتَطِعِ' manshub, 'يُكْمِلَ' marfu'"], correct: 0 },
-        { id: 9, level: "Level 3: Tinggi / HOTS", bobot: 12, stimulus: "Korelasi Kurikulum Berbasis Cinta...", question: "Apa efek gramatikal dari 'لَامُ الْأَمْر' pada kata 'يَعْمَلْ'?", options: ["A. Menashabkan fathah", "B. Menjazamkan sukun", "C. Merasmikan dammah", "D. Menjerkan kasrah"], correct: 1 },
-        { id: 10, level: "Level 3: Tinggi / HOTS", bobot: 12, stimulus: "Evaluasi komprehensif wacana...", question: "Berdasarkan analisis sintaksis dan semantik, apa kesimpulan dari kalimat penutup di atas?", options: ["A. Belajar di universitas tidak menjamin masa depan", "B. Menuntut ilmu berlandaskan akhlak & tata bahasa yang benar takkan membawa penyesalan", "C. Bebas mengabaikan kaidah", "D. Ilmu terpisah dari kemanusiaan"], correct: 1 }
-    ];
+    <!-- MAIN APP CONTAINER -->
+    <div id="app-container" class="flex-1 flex flex-col hidden opacity-0 transition-opacity duration-500 min-h-screen pb-8">
 
-    // --- Core Application Logic & Views ---
-    let currentView = 'cover';
-    let reflectionSaved = false;
-    const viewIds = ['cover','identity','guide','dashboard','belajar','bermain','berlatih','reflection','report'];
+        <!-- HEADER / NAVBAR -->
+        <header class="bg-cardbg/80 dark:bg-cardbg/80 backdrop-blur-md border-b border-gold/20 px-4 py-3 sticky top-0 z-30 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-lg">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <div>
+                    <h2 class="text-sm md:text-base font-bold text-gold-light arabic-text">الدراسة في الجامعة</h2>
+                    <p class="text-[11px] text-gray-400">Bahasa Arab Kelas XII • MAS Hubulo</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 md:space-x-3">
+                <!-- Status Sync GAS Indicator -->
+                <div id="gas-status-indicator" class="hidden md:flex items-center space-x-1.5 bg-darkslate px-2.5 py-1 rounded-full border border-gold/20 text-[10px] text-gray-300" title="Terhubung ke Google Sheets Backend">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span>GAS Connected</span>
+                </div>
 
-    function showView(name) {
-        playSessionSwitch();
-        currentView = name;
-        viewIds.forEach(v => {
-            const el = document.getElementById('view-' + v);
-            if (el) el.classList.toggle('hidden', v !== name);
-        });
-        window.scrollTo({top:0, behavior:'smooth'});
-        updateTicker();
-        if (name === 'dashboard') updateDashboard();
-    }
+                <!-- Logo Sekolah Hubulo -->
+                <img src="https://iili.io/nvQ1j3l.png" alt="Logo MAS Hubulo" class="w-9 h-9 object-contain rounded-full bg-darkslate p-1 border border-gold/30 hover:border-gold transition-all" title="MAS Hubulo Gorontalo">
 
-    function openModal(id) { playBtnClick(); document.getElementById(id)?.classList.remove('hidden'); }
-    function closeModal(id) { playBtnClick(); document.getElementById(id)?.classList.add('hidden'); }
-    function goToIdentity(){ showView('identity'); }
+                <!-- Toggle Theme Dark/Light Button -->
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full bg-darkslate border border-gold/30 flex items-center justify-center text-gold hover:bg-gold/20 transition-all" title="Ubah Tema (Terang/Gelap)">
+                    <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
+                </button>
 
-    function confirmExit(){
-        if(confirm('Keluar dan mengatur ulang sesi pembelajaran?')){
-            studentName=''; studentClass=''; bermainAnswers={}; berlatihAnswers={};
-            bermainScore=0; totalBerlatihScore=0; currentBelajarSlide=0;
-            belajarCompletedSlides=[false,false,false,false,false,false,false];
-            unlockedBermain=false; unlockedBerlatih=false; reflectionSaved=false;
-            userReflection={learned:'',known:'',apply:''};
-            showView('cover');
-            document.getElementById('student-badge').classList.add('hidden');
-            document.getElementById('student-badge').classList.remove('flex');
+                <!-- Toggle Audio Backsound Button -->
+                <button onclick="toggleBacksound()" class="w-9 h-9 rounded-full bg-darkslate border border-gold/30 flex items-center justify-center text-gold hover:bg-gold/20 transition-all" title="Audio Backsound">
+                    <i id="audio-icon" class="fa-solid fa-music text-sm opacity-50"></i>
+                </button>
+
+                <div id="student-badge" class="hidden items-center space-x-3 bg-darkslate px-3.5 py-1.5 rounded-full border border-gold/20">
+                    <div class="w-7 h-7 rounded-full bg-gold text-pearl font-bold text-xs flex items-center justify-center" id="student-initials">S</div>
+                    <div class="text-xs">
+                        <span id="nav-student-name" class="font-semibold text-gray-200 block">Siswa</span>
+                        <span id="nav-student-class" class="text-gold text-[10px]">Kelas XII</span>
+                    </div>
+                    <button onclick="confirmExit()" class="text-gray-400 hover:text-red-400 ml-2 text-xs transition-colors" title="Keluar / Reset Sesi"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- DYNAMIC VIEWPORT CONTAINER -->
+        <main class="flex-1 flex flex-col relative overflow-y-auto">
+
+            <!-- 1. HALAMAN COVER -->
+            <section id="view-cover" class="flex-1 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden my-auto">
+                <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-4xl mx-auto z-10 flex flex-col items-center">
+                    <div class="inline-flex items-center space-x-2 bg-gold/10 border border-gold/30 text-gold-light px-4 py-1.5 rounded-full text-xs font-medium mb-6">
+                        <i class="fa-solid fa-heart text-gold"></i>
+                        <span>Kurikulum Berbasis Cinta (KBC) Kemenag RI & Asesmen AKM</span>
+                    </div>
+
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-3 tracking-tight arabic-text">
+                        الدراسة في الجامعة
+                    </h1>
+                    <p class="text-lg md:text-xl text-gold font-semibold mb-2">Pendidikan di Jenjang Perguruan Tinggi</p>
+                    <p class="text-gray-300 text-xs md:text-sm max-w-2xl mb-8 leading-relaxed">
+                        Pendalaman Wacana Akademik, Kosakata Bahasa Prosedur, dan Sintaksis <span class="text-gold-light font-semibold">Al-Fi'lu Al-Mudhari' (المرفوع، المنصوب، المجزوم)</span> dalam Konteks Lokal (Gorontalo) & Global (Mesir, Saudi Arabia, Inggris).
+                    </p>
+
+                    <!-- Animated Toga Graduation Cap Emblem Banner -->
+                    <div class="w-full max-w-lg mb-8 bg-cardbg/90 border border-gold/40 rounded-2xl p-6 glow-gold flex justify-center items-center shadow-2xl relative overflow-hidden group">
+                        <svg viewBox="0 0 500 230" class="w-full h-48 rounded-xl bg-gradient-to-b from-[#0b0e14] via-[#121722] to-[#1a2130]">
+                            <defs>
+                                <radialGradient id="togaGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#f3e5ab" stop-opacity="1"/>
+                                    <stop offset="50%" stop-color="#d4af37" stop-opacity="0.5"/>
+                                    <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+                                </radialGradient>
+                                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#f3e5ab"/>
+                                    <stop offset="50%" stop-color="#d4af37"/>
+                                    <stop offset="100%" stop-color="#aa820a"/>
+                                </linearGradient>
+                            </defs>
+
+                            <g class="animate-ai-grid" stroke="#d4af37" stroke-width="0.5" stroke-dasharray="3,3">
+                                <circle cx="250" cy="100" r="90" fill="url(#togaGlow)" opacity="0.4"/>
+                                <line x1="30" y1="40" x2="470" y2="40"/>
+                                <line x1="30" y1="180" x2="470" y2="180"/>
+                                <circle cx="100" cy="40" r="3" fill="#d4af37"/>
+                                <circle cx="400" cy="40" r="3" fill="#d4af37"/>
+                                <circle cx="70" cy="180" r="3" fill="#60a5fa"/>
+                                <circle cx="430" cy="180" r="3" fill="#c084fc"/>
+                            </g>
+
+                            <g class="animate-float">
+                                <g transform="translate(250, 95)">
+                                    <path d="M-40 10 C-40 30, 40 30, 40 10 L30 32 C30 42, -30 42, -30 32 Z" fill="url(#goldGrad)" stroke="#f3e5ab" stroke-width="1.5"/>
+                                    <polygon points="0,-35 95,-5 0,25 -95,-5" fill="#181b22" stroke="url(#goldGrad)" stroke-width="4.5"/>
+                                    <polygon points="0,-30 85,-5 0,20 -85,-5" fill="#0f1115" opacity="0.8"/>
+                                    <circle cx="0" cy="-5" r="5" fill="#f3e5ab" stroke="#d4af37" stroke-width="1.5"/>
+                                    <path d="M0 -5 C-35 -5, -60 10, -65 25" fill="none" stroke="#f3e5ab" stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="0"/>
+                                    <polygon points="-65,25 -70,45 -60,45" fill="#d4af37"/>
+                                    <circle cx="-65" cy="25" r="3" fill="#f3e5ab"/>
+                                </g>
+                                <path d="M120,60 L123,68 L131,71 L123,74 L120,82 L117,74 L109,71 L117,68 Z" fill="#f3e5ab" opacity="0.8"/>
+                                <path d="M380,50 L382,56 L388,58 L382,60 L380,66 L378,60 L372,58 L378,56 Z" fill="#d4af37" opacity="0.9"/>
+                            </g>
+                            <text x="250" y="210" fill="#f3e5ab" font-size="12" font-weight="bold" text-anchor="middle" font-family="Inter, sans-serif" letter-spacing="1.5">GERBANG AKADEMIK PERGURUAN TINGGI</text>
+                        </svg>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap justify-center gap-4 w-full max-w-md">
+                        <button onclick="playBtnClick(); openModal('modal-developer')" class="flex-1 min-w-[140px] bg-cardbg hover:bg-darkslate border border-gold/30 hover:border-gold text-gold-light py-3 px-5 rounded-xl font-semibold text-xs transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fa-solid fa-id-badge text-gold"></i>
+                            <span>Pengembang</span>
+                        </button>
+                        <button onclick="playBtnClick(); openModal('modal-objectives')" class="flex-1 min-w-[140px] bg-cardbg hover:bg-darkslate border border-gold/30 hover:border-gold text-gold-light py-3 px-5 rounded-xl font-semibold text-xs transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fa-solid fa-bullseye text-gold"></i>
+                            <span>Tujuan & KBC</span>
+                        </button>
+                        <button onclick="playBtnClick(); goToIdentity()" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light hover:brightness-110 text-pearl py-3.5 px-8 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center space-x-3 shadow-xl glow-gold">
+                            <i class="fa-solid fa-play"></i>
+                            <span>MULAI PETUALANGAN BELAJAR</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. FORM INPUT IDENTITAS SISWA -->
+            <section id="view-identity" class="flex-1 flex flex-col items-center justify-center p-6 hidden my-auto">
+                <div class="max-w-md w-full bg-cardbg border border-gold/30 rounded-2xl p-8 shadow-2xl relative">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-xl bg-gold text-pearl flex items-center justify-center text-xl shadow-lg">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-center text-white mt-4 mb-1">Registrasi Identitas Siswa</h2>
+                    <p class="text-gray-400 text-xs text-center mb-6">Masukkan data diri resmi untuk mencetak Laporan Hasil Belajar PDF.</p>
+
+                    <form id="identity-form" onsubmit="handleIdentitySubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">Nama Lengkap Siswa</label>
+                            <input type="text" id="input-name" required placeholder="Contoh: Muhammad Al Fatih" class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">Kelas / Rombel (Fase F)</label>
+                            <select id="input-class" required class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all">
+                                <option value="" disabled selected>Pilih Kelas</option>
+                                <option value="Kelas XII.1 (Fase F)">Kelas XII.1 (Fase F)</option>
+                                <option value="Kelas XII.2 (Fase F)">Kelas XII.2 (Fase F)</option>
+                            </select>
+                        </div>
+                        <div id="identity-error" class="text-red-400 text-xs text-center hidden">Harap isi nama dan kelas Anda!</div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-pearl font-bold py-3.5 rounded-xl hover:brightness-110 transition-all shadow-lg text-sm mt-2">
+                            Lanjut ke Panduan Pembelajaran <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 3. HALAMAN PENGANTAR & PANDUAN PENGGUNA (SLIDES) -->
+            <section id="view-guide" class="flex-1 flex flex-col items-center justify-center p-6 hidden my-auto">
+                <div class="max-w-2xl w-full bg-cardbg border border-gold/30 rounded-2xl p-8 shadow-2xl flex flex-col justify-between min-h-[420px]">
+                    <div>
+                        <div class="flex items-center justify-between mb-6 border-b border-gray-800 pb-4">
+                            <h3 id="guide-title" class="text-lg font-bold text-gold-light">Selamat Datang!</h3>
+                            <span id="guide-counter" class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full font-semibold">Panduan 1 dari 3</span>
+                        </div>
+                        <div id="guide-content" class="text-gray-300 text-xs md:text-sm leading-relaxed space-y-4"></div>
+                    </div>
+                    <div class="flex items-center justify-between pt-6 border-t border-gray-800 mt-6">
+                        <button id="guide-prev" onclick="prevGuideStep()" class="px-5 py-2.5 rounded-xl bg-darkslate hover:bg-gray-800 text-gray-300 text-xs font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Sebelumnya
+                        </button>
+                        <button id="guide-next" onclick="nextGuideStep()" class="px-6 py-2.5 rounded-xl bg-gold hover:bg-gold-light text-pearl text-xs font-bold transition-all shadow-md">
+                            Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. MENU UTAMA (DASHBOARD TERKUNCI BERTAHAP 3 LEVEL) -->
+            <section id="view-dashboard" class="flex-1 flex flex-col p-6 max-w-5xl mx-auto w-full hidden justify-center my-auto">
+                <div class="mb-8 text-center">
+                    <div class="inline-block bg-gold/10 border border-gold/30 text-gold px-4 py-1 rounded-full text-xs font-semibold mb-2">DASHBOARD UTAMA PEMBELAJARAN BERTAHAP</div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Pilih Alur Pembelajaran</h2>
+                    <p class="text-gray-400 text-xs md:text-sm max-w-xl mx-auto">Selesaikan materi belajar untuk membuka menu bermain dan berlatih secara bertahap demi penguasaan kompetensi utuh.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Menu 1: Belajar -->
+                    <div onclick="openMenu('belajar')" class="group bg-cardbg hover:bg-darkslate border border-gold/30 hover:border-gold rounded-2xl p-6 cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full blur-2xl group-hover:bg-gold/10 transition-all"></div>
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-2xl mb-4 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-book-open"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-gold-light transition-colors">1. BELAJAR</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed mb-6">7 Slide mendalam tentang wacana "الدراسة في الجامعة", Fi'il Mudhari' (Marfu', Manshub, Majzum), integrasi ayat Al-Qur'an, konteks Gorontalo & Global, serta KBC.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-semibold text-gold">
+                            <span>Status: <span id="status-belajar" class="text-green-400 font-bold">TERBUKA 🔓</span></span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <!-- Menu 2: Bermain -->
+                    <div id="card-bermain" onclick="tryOpenMenu('bermain')" class="group bg-cardbg/80 border border-gray-800 rounded-2xl p-6 cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between relative overflow-hidden opacity-70">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl"></div>
+                        <div>
+                            <div id="icon-bermain" class="w-14 h-14 rounded-2xl bg-gray-800 border border-gray-700 flex items-center justify-center text-gray-400 text-2xl mb-4">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">2. BERMAIN</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed mb-6">10 Tantangan gamifikasi dengan stimulus literasi & numerasi (100–200 kata) mekanik menjodohkan, analisis kontekstual, dan pilihan ganda interaktif.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-semibold text-gray-400">
+                            <span>Status: <span id="status-bermain-text" class="text-yellow-500 font-bold">TERKUNCI 🔒</span></span>
+                            <i class="fa-solid fa-lock" id="lock-bermain"></i>
+                        </div>
+                    </div>
+
+                    <!-- Menu 3: Berlatih -->
+                    <div id="card-berlatih" onclick="tryOpenMenu('berlatih')" class="group bg-cardbg/80 border border-gray-800 rounded-2xl p-6 cursor-pointer transition-all duration-300 shadow-xl flex flex-col justify-between relative overflow-hidden opacity-70">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl"></div>
+                        <div>
+                            <div id="icon-berlatih" class="w-14 h-14 rounded-2xl bg-gray-800 border border-gray-700 flex items-center justify-center text-gray-400 text-2xl mb-4">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">3. BERLATIH</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed mb-6">10 Soal asesmen berjenjang formal (Level 1 Pemahaman, Level 2 Aplikasi, Level 3 HOTS) berbobot total 100 poin dengan laporan PDF instan.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs font-semibold text-gray-400">
+                            <span>Status: <span id="status-berlatih-text" class="text-yellow-500 font-bold">TERKUNCI 🔒</span></span>
+                            <i class="fa-solid fa-lock" id="lock-berlatih"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. LAYER MENU 1: BELAJAR -->
+            <section id="view-belajar" class="flex-1 flex flex-col p-4 md:p-8 max-w-4xl mx-auto w-full hidden">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800">
+                    <button onclick="backToDashboard()" class="px-4 py-2 bg-darkslate hover:bg-gray-800 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2">
+                        <i class="fa-solid fa-arrow-left"></i><span>Menu Utama</span>
+                    </button>
+                    <div class="text-center">
+                        <span id="belajar-slide-indicator" class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full font-bold">Slide 1 dari 7</span>
+                    </div>
+                    <div class="text-xs text-gray-400 font-medium">Modul Belajar</div>
+                </div>
+
+                <div id="belajar-slide-card" class="bg-cardbg border border-gold/30 rounded-2xl p-6 md:p-8 shadow-2xl flex-1 flex flex-col justify-between">
+                    <div id="belajar-content-area" class="space-y-6"></div>
+
+                    <div class="flex items-center justify-between pt-6 border-t border-gray-800 mt-8">
+                        <button id="belajar-prev-btn" onclick="prevBelajarSlide()" class="px-5 py-2.5 rounded-xl bg-darkslate hover:bg-gray-800 text-gray-300 text-xs font-medium transition-all disabled:opacity-30">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Sebelumnya
+                        </button>
+                        <button id="belajar-next-btn" onclick="nextBelajarSlide()" class="px-6 py-2.5 rounded-xl bg-gold hover:bg-gold-light text-pearl text-xs font-bold transition-all shadow-md">
+                            Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. LAYER MENU 2: BERMAIN -->
+            <section id="view-bermain" class="flex-1 flex flex-col p-4 md:p-8 max-w-4xl mx-auto w-full hidden">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800">
+                    <button onclick="backToDashboard()" class="px-4 py-2 bg-darkslate hover:bg-gray-800 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2">
+                        <i class="fa-solid fa-arrow-left"></i><span>Menu Utama</span>
+                    </button>
+                    <div class="text-center">
+                        <span id="bermain-counter" class="text-xs bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full font-bold">Tantangan 1 dari 10</span>
+                    </div>
+                    <div id="bermain-score" class="text-xs font-bold text-gold">Skor: 0</div>
+                </div>
+
+                <div class="bg-cardbg border border-blue-500/30 rounded-2xl p-6 md:p-8 shadow-2xl flex-1 flex flex-col justify-between">
+                    <div id="bermain-content-area" class="space-y-6"></div>
+                </div>
+            </section>
+
+            <!-- 7. LAYER MENU 3: BERLATIH -->
+            <section id="view-berlatih" class="flex-1 flex flex-col p-4 md:p-8 max-w-4xl mx-auto w-full hidden">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800">
+                    <button onclick="playBtnClick(); backToDashboard()" class="px-4 py-2 bg-darkslate hover:bg-gray-800 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2">
+                        <i class="fa-solid fa-arrow-left"></i><span>Menu Utama</span>
+                    </button>
+                    <div class="text-center">
+                        <span id="berlatih-counter" class="text-xs bg-purple-500/10 text-purple-400 px-3 py-1 rounded-full font-bold">Soal Asesmen 1 dari 10</span>
+                    </div>
+                    <div id="berlatih-level-badge" class="text-xs font-bold bg-gold/10 text-gold px-3 py-1 rounded-full">Level 1: Dasar</div>
+                </div>
+
+                <div class="bg-cardbg border border-purple-500/30 rounded-2xl p-6 md:p-8 shadow-2xl flex-1 flex flex-col justify-between">
+                    <div id="berlatih-content-area" class="space-y-6"></div>
+                </div>
+            </section>
+
+            <!-- 7.5 REFLEKSI PEMBELAJARAN PESERTA -->
+            <section id="view-reflection" class="flex-1 flex flex-col p-4 md:p-8 max-w-2xl mx-auto w-full hidden my-auto">
+                <div class="bg-cardbg border border-gold/40 rounded-2xl p-6 md:p-8 shadow-2xl space-y-6">
+                    <div class="text-center space-y-2 border-b border-gray-800 pb-4">
+                        <div class="w-14 h-14 rounded-full bg-gold/10 border border-gold/30 text-gold text-2xl flex items-center justify-center mx-auto mb-2">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Form Refleksi Pembelajaran Siswa</h3>
+                        <p class="text-xs text-gray-400">Silakan isi refleksi diri berikut secara jujur dan mendalam sebelum mengunduh Laporan Hasil Belajar PDF.</p>
+                    </div>
+
+                    <form id="reflection-form" onsubmit="handleReflectionSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">1. Apa yang telah Anda pelajari pada sesi ini?</label>
+                            <textarea id="ref-learned" required rows="2" placeholder="Contoh: Saya telah mempelajari struktur tata bahasa Fi'il Mudhari' Marfu', Manshub, dan Majzum dalam wacana perkuliahan..." class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none transition-all"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">2. Apa hal paling berharga yang telah Anda ketahui?</label>
+                            <textarea id="ref-known" required rows="2" placeholder="Contoh: Pentingnya huruf nashab seperti 'an' dan 'lan' dalam mengubah makna serta pentingnya menuntut ilmu..." class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none transition-all"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gold-light uppercase tracking-wider mb-2">3. Di mana dan bagaimana Anda bisa menerapkan pembelajaran ini?</label>
+                            <textarea id="ref-apply" required rows="2" placeholder="Contoh: Saya bisa menerapkannya saat menyusun esai akademis bahasa Arab dan berkomunikasi..." class="w-full bg-pearl border border-gray-700 focus:border-gold rounded-xl p-3 text-xs text-white placeholder-gray-500 focus:outline-none transition-all"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-pearl font-bold py-3.5 rounded-xl hover:brightness-110 transition-all shadow-lg text-xs mt-2">
+                            Simpan Refleksi & Lihat Laporan PDF <i class="fa-solid fa-file-contract ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 8. LAPORAN HASIL BELAJAR PDF OTOMATIS -->
+            <section id="view-report" class="flex-1 flex flex-col p-4 md:p-8 max-w-4xl mx-auto w-full hidden">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-800 print:hidden">
+                    <button onclick="playBtnClick(); backToDashboard()" class="px-4 py-2 bg-darkslate hover:bg-gray-800 rounded-xl text-xs font-medium text-gray-300 flex items-center space-x-2">
+                        <i class="fa-solid fa-arrow-left"></i><span>Menu Utama</span>
+                    </button>
+                    <h2 class="text-lg font-bold text-gold-light">Laporan Hasil Belajar Siswa (KBC)</h2>
+                    <button onclick="playBtnClick(); downloadPDF()" class="px-5 py-2.5 bg-gradient-to-r from-gold-dark via-gold to-gold-light text-pearl font-bold rounded-xl text-xs flex items-center space-x-2 shadow-lg hover:brightness-110">
+                        <i class="fa-solid fa-file-pdf"></i><span>Unduh / Cetak PDF</span>
+                    </button>
+                </div>
+
+                <!-- Printable Report Sheet -->
+                <div id="report-printable-area" class="bg-white text-gray-900 rounded-2xl p-8 shadow-2xl max-w-3xl mx-auto w-full space-y-6">
+                    <div class="border-b-2 border-gold pb-4 flex items-center justify-between">
+                        <div>
+                            <h3 class="text-base font-bold text-pearl">KEMENTERIAN AGAMA REPUBLIK INDONESIA</h3>
+                            <h4 class="text-sm font-semibold text-gray-800">MADRASAH ALIYAH SWASTA (MAS) HUBULO GORONTALO</h4>
+                            <p class="text-[11px] text-gray-500">Media Pembelajaran Interaktif Bahasa Arab Fase F (Kelas XII) • Topik: الدراسة في الجامعة</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold">KBC Kemenag RI</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl text-xs">
+                        <div>
+                            <p class="font-bold text-gray-500">NAMA SISWA PESERTA:</p>
+                            <p id="rep-student-name" class="text-base font-bold text-pearl">Muhammad Al Fatih</p>
+                            <p class="font-bold text-gray-500 mt-2">KELAS / ROMBEL:</p>
+                            <p id="rep-student-class" class="text-sm font-semibold text-pearl">Kelas XII IPA (Fase F)</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-500">PENGEMBANG / GURU PENGAMPU:</p>
+                            <p class="text-sm font-bold text-pearl">Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr.</p>
+                            <p class="font-bold text-gray-500 mt-[2px]">ASAL MADRASAH: <span class="font-normal text-gray-700">MAS Hubulo</span></p>
+                            <p class="font-bold text-gray-500 mt-2">WAKTU PENGERJAAN:</p>
+                            <p id="rep-timestamp" class="text-xs text-gray-700">-</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-bold text-pearl uppercase tracking-wider border-l-4 border-gold pl-2">Rekapitulasi Performa Pembelajaran</h4>
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl">
+                                <p class="text-[11px] text-gray-600 font-medium">Skor Menjawab Bermain</p>
+                                <p id="rep-bermain-score" class="text-xl font-bold text-amber-700">0 / 10</p>
+                            </div>
+                            <div class="bg-purple-50 border border-purple-200 p-3 rounded-xl">
+                                <p class="text-[11px] text-gray-600 font-medium">Nilai Asesmen Berlatih</p>
+                                <p id="rep-berlatih-score" class="text-xl font-bold text-purple-700">0 / 100</p>
+                            </div>
+                            <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
+                                <p class="text-[11px] text-gray-600 font-medium">Predikat Akhir</p>
+                                <p id="rep-predikat" class="text-lg font-bold text-emerald-700">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <h4 class="text-xs font-bold text-pearl uppercase tracking-wider border-l-4 border-gold pl-2">Hasil Refleksi Diri Peserta</h4>
+                        <div class="bg-amber-50/60 border border-amber-200 p-4 rounded-xl space-y-2 text-gray-800">
+                            <p><strong>1. Apa yang dipelajari:</strong> <span id="rep-ref-learned" class="italic text-gray-700">-</span></p>
+                            <p><strong>2. Hal yang diketahui:</strong> <span id="rep-ref-known" class="italic text-gray-700">-</span></p>
+                            <p><strong>3. Penerapan pembelajaran:</strong> <span id="rep-ref-apply" class="italic text-gray-700">-</span></p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <h4 class="text-xs font-bold text-pearl uppercase tracking-wider border-l-4 border-gold pl-2">Analisis Kompetensi & Kurikulum Berbasis Cinta (KBC)</h4>
+                        <div class="bg-gray-50 p-4 rounded-xl space-y-2 text-gray-700 leading-relaxed">
+                            <p><strong>Penguasaan Asesmen Berjenjang:</strong> Siswa telah melalui asesmen berjenjang mencakup Level 1 (Dasar), Level 2 (Aplikasi & Penerapan), dan Level 3 (HOTS & Penalaran Wacana *الدراسة في الجامعة*).</p>
+                            <p><strong>Refleksi Kurikulum Berbasis Cinta (KBC Kemenag RI):</strong> Menunjukkan apresiasi tinggi terhadap pencarian ilmu (*cinta ilmu*), kesadaran moderasi beragama, kepedulian sosial (*cinta sesama*), serta semangat kontribusi membangun negeri (*cinta tanah air*) yang terintegrasi dalam pemahaman kaidah *Al-Fi'lu Al-Mudhari' (المرفوع، المنصوب، المجزوم)*.</p>
+                            <p><strong>Rekomendasi Guru Pengampu:</strong> Teruslah mengasah keterampilan literasi baca dan analisis tata bahasa Arab secara konsisten dalam kehidupan akademik sehari-hari.</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-gray-200 flex justify-between items-end text-xs">
+                        <div>
+                            <p class="text-gray-500">Disahkan oleh Guru Pengampu:</p>
+                            <p class="font-bold text-pearl mt-1">MAS Hubulo Gorontalo</p>
+                            <div class="h-12"></div>
+                            <p class="font-bold text-pearl underline">Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr.</p>
+                            <p class="text-[10px] text-gray-500">NIP/NPU: amiruliqbal.hubulo@gmail.com</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-gray-500">Gorontalo, <span id="rep-current-date">2026</span></p>
+                            <p class="font-bold text-pearl mt-1">Siswa Peserta</p>
+                            <div class="h-12"></div>
+                            <p id="rep-sign-name" class="font-bold text-pearl underline">[ Nama Siswa ]</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER RUNNING TEXT -->
+        <footer class="fixed bottom-0 left-0 right-0 bg-darkslate/95 border-t border-gold/30 py-1.5 px-4 z-40 text-xs overflow-hidden">
+            <div class="whitespace-nowrap flex items-center animate-[marquee_25s_linear_infinite]" id="marquee-text-container">
+                <span class="text-gold font-bold mr-6"><i class="fa-solid fa-graduation-cap mr-1"></i> Mata Pelajaran: Bahasa Arab (Fase F / Kelas XII)</span>
+                <span class="text-gray-300 mr-6">• Pengembang: <strong class="text-gold-light">Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr.</strong></span>
+                <span class="text-gray-300 mr-6">• Instansi: <strong class="text-gold-light">MAS Hubulo Gorontalo</strong></span>
+                <span class="text-gray-300 mr-6">• Peserta: <strong id="ticker-student-name" class="text-gold-light">Belum Terdaftar</strong></span>
+                <span class="text-emerald-400 font-bold mr-6">• Skor Bermain: <span id="ticker-bermain-score">0/10</span></span>
+                <span class="text-purple-400 font-bold mr-6">• Nilai Berlatih: <span id="ticker-berlatih-score">0/100</span></span>
+                <span class="text-gold font-bold mr-6"><i class="fa-solid fa-heart text-red-400 mr-1"></i> Kurikulum Berbasis Cinta (KBC) Kemenag RI</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Keyframe Animation for Marquee Ticker -->
+    <style>
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+
+    <!-- FLOATING MODALS -->
+    <!-- Modal Pengembang -->
+    <div id="modal-developer" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-cardbg border border-gold/40 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeModal('modal-developer')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex flex-col items-center text-center">
+                <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-gold-dark via-gold to-gold-light mb-4 shadow-xl relative overflow-hidden">
+                    <img src="https://www.instagram.com/p/BMX_QCwAAwX/" alt="Amirul Iqbal" class="w-full h-full object-cover rounded-full" onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';">
+                    <div id="avatar-fallback" class="w-full h-full rounded-full bg-pearl text-gold font-bold text-2xl items-center justify-center hidden absolute inset-0">AI</div>
+                </div>
+                <h3 class="text-base font-bold text-white mb-1">Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr.</h3>
+                <span class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full font-semibold mb-3">Pengembang & Pakar Kurikulum</span>
+                <p class="text-xs text-gray-300 mb-4">Asal Madrasah: <strong class="text-gold-light">MAS Hubulo</strong></p>
+                <div class="bg-pearl/60 border border-gray-800 rounded-xl p-3 w-full text-xs text-gray-400 space-y-1.5 text-left">
+                    <p><i class="fa-solid fa-envelope text-gold mr-2"></i> <strong>Email:</strong> amiruliqbal.hubulo@gmail.com</p>
+                    <p><i class="fa-solid fa-award text-gold mr-2"></i> <strong>Keahlian:</strong> Instructional Design & KBC Kemenag RI</p>
+                    <p><i class="fa-solid fa-location-dot text-gold mr-2"></i> <strong>Wilayah:</strong> MAS Hubulo, Gorontalo</p>
+                </div>
+                <button onclick="closeModal('modal-developer')" class="mt-6 w-full bg-darkslate hover:bg-gray-800 border border-gold/30 text-gold py-2.5 rounded-xl font-medium text-xs transition-all">Tutup Informasi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Objectives -->
+    <div id="modal-objectives" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-cardbg border border-gold/40 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('modal-objectives')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3 border-b border-gray-800 pb-3">
+                    <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-lg">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Tujuan Pembelajaran & KBC</h3>
+                        <p class="text-xs text-gold">Fase F • Kelas XII Madrasah Aliyah</p>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-300 space-y-3 leading-relaxed">
+                    <p><strong>Capaian Pembelajaran (CP):</strong> Murid mampu mengidentifikasi, memahami, dan menganalisis kosakata dan isi wacana prosedur lisan maupun tulisan tentang tema Studi di Perguruan Tinggi (<span class="arabic-text text-sm text-gold-light">الدراسة في الجامعة</span>) yang menggunakan <span class="arabic-text text-sm text-gold-light">الفعل المضارع المرفوع والمنصوب والمجزوم</span> dalam kalimat atau paragraf dengan baik.</p>
+                    <div class="bg-pearl p-3.5 rounded-xl border border-gray-800 space-y-1">
+                        <p class="text-gold font-bold text-xs"><i class="fa-solid fa-book-quran mr-1"></i> Ayat Al-Qur'an Tematik (QS. Al-Mujadilah: 11):</p>
+                        <p class="arabic-text text-base text-gold-light text-right">يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنْكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ</p>
+                        <p class="text-[11px] text-gray-400">"Allah akan meninggikan orang-orang yang beriman di antaramu dan orang-orang yang diberi ilmu pengetahuan beberapa derajat."</p>
+                    </div>
+                    <div class="bg-pearl p-3.5 rounded-xl border border-gray-800 space-y-1">
+                        <p class="text-gold font-bold text-xs"><i class="fa-solid fa-heart mr-1"></i> Kurikulum Berbasis Cinta (KBC Kemenag RI):</p>
+                        <p class="text-[11px] text-gray-400">Menanamkan cinta ilmu, kasih sayang sesama manusia, kesadaran moderasi beragama, dan cinta tanah air dalam menuntut ilmu hingga jenjang perguruan tinggi.</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-objectives')" class="w-full bg-darkslate hover:bg-gray-800 border border-gold/30 text-gold py-2.5 rounded-xl font-medium text-xs transition-all">Kembali</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Warning Terkunci -->
+    <div id="modal-alert" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-cardbg border border-red-500/40 rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl space-y-4">
+            <div class="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 text-2xl mx-auto">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="text-base font-bold text-white" id="alert-title">Menu Terkunci!</h3>
+            <p class="text-xs text-gray-400 leading-relaxed" id="alert-msg">Selesaikan tahapan belajar sebelumnya untuk membuka kunci menu ini.</p>
+            <button onclick="closeModal('modal-alert')" class="w-full bg-gold hover:bg-gold-light text-pearl font-bold py-2.5 rounded-xl text-xs transition-all">Paham, Saya Mengerti</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & GAS INTEGRATION -->
+    <script>
+        // =========================================================================
+        // DEKLARASI TAUTAN GOOGLE APPS SCRIPT WEB APP (GAS_URL)
+        // Terhubung langsung ke URL Web App Anda
+        // =========================================================================
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbwzJl3FksdmjJFdnr9ABCCA3R2PXgkzPM5lJehTLy5r8SwU6gsLfKTHhMD_KLnf9jTe/exec";
+
+        // --- State Management ---
+        let studentName = "";
+        let studentClass = "";
+        let currentGuideStep = 0;
+        let currentBelajarSlide = 0;
+        let currentBermainIndex = 0;
+        let currentBerlatihIndex = 0;
+        
+        let unlockedBermain = false;
+        let unlockedBerlatih = false;
+
+        let belajarCompletedSlides = [false, false, false, false, false, false, false];
+        let bermainAnswers = {};
+        let berlatihAnswers = {};
+        let bermainScore = 0;
+        let totalBerlatihScore = 0;
+
+        let userReflection = { learned: "", known: "", apply: "" };
+        let isDarkMode = true;
+
+        // --- Audio Synthesizer Engine ---
+        let isAudioEnabled = false;
+        let isBacksoundPlaying = false;
+        let synth, polySynth;
+        let loopBgm;
+
+        function initAudioEngine() {
+            if (synth) return;
+            try {
+                Tone.start();
+                synth = new Tone.Synth().toDestination();
+                polySynth = new Tone.PolySynth(Tone.Synth).toDestination();
+                polySynth.volume.value = -12;
+                
+                const notes = ["C3", "E3", "G3", "B3", "A3", "F3"];
+                let step = 0;
+                loopBgm = new Tone.Loop(time => {
+                    if (isBacksoundPlaying) {
+                        polySynth.triggerAttackRelease(notes[step % notes.length], "8n", time, 0.2);
+                        step++;
+                    }
+                }, "4n");
+                Tone.Transport.bpm.value = 75;
+                Tone.Transport.start();
+                loopBgm.start(0);
+                isAudioEnabled = true;
+            } catch (e) {
+                console.log("Audio Init Warning:", e);
+            }
+        }
+
+        function toggleBacksound() {
+            initAudioEngine();
+            isBacksoundPlaying = !isBacksoundPlaying;
+            const icon = document.getElementById('audio-icon');
+            if (isBacksoundPlaying) {
+                icon.className = "fa-solid fa-volume-high text-sm text-gold";
+            } else {
+                icon.className = "fa-solid fa-music text-sm opacity-50";
+            }
+        }
+
+        function playBtnClick() {
+            if (!isAudioEnabled) initAudioEngine();
+            try { if (synth) synth.triggerAttackRelease("C5", "32n"); } catch (e) {}
+        }
+        function playSessionSwitch() {
+            if (!isAudioEnabled) initAudioEngine();
+            try { if (polySynth) polySynth.triggerAttackRelease(["C4", "G4", "C5"], "16n"); } catch (e) {}
+        }
+        function playCorrectSound() {
+            if (!isAudioEnabled) initAudioEngine();
+            try { if (polySynth) polySynth.triggerAttackRelease(["E5", "G5", "C6"], "8n"); } catch (e) {}
+        }
+        function playWrongSound() {
+            if (!isAudioEnabled) initAudioEngine();
+            try { if (synth) synth.triggerAttackRelease("F3", "8n"); } catch (e) {}
+        }
+        function playCompletionSound() {
+            if (!isAudioEnabled) initAudioEngine();
+            try {
+                if (polySynth) {
+                    polySynth.triggerAttackRelease(["C4", "E4", "G4", "C5"], "4n");
+                    setTimeout(() => polySynth.triggerAttackRelease(["G4", "B4", "D5", "G5"], "2n"), 300);
+                }
+            } catch (e) {}
+        }
+
+        function toggleTheme() {
+            playBtnClick();
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+
+            if (!isDarkMode) {
+                body.classList.add('light-mode');
+                body.classList.remove('bg-pearl', 'text-gray-100');
+                body.classList.add('bg-gray-100', 'text-gray-900');
+                themeIcon.className = "fa-solid fa-sun text-sm text-yellow-500";
+            } else {
+                body.classList.remove('light-mode', 'bg-gray-100', 'text-gray-900');
+                body.classList.add('bg-pearl', 'text-gray-100');
+                themeIcon.className = "fa-solid fa-moon text-sm text-gold";
+            }
+        }
+
+        // Data Guide Steps
+        const guideSteps = [
+            {
+                title: "Selamat Datang di Portal Pembelajaran Bahasa Arab",
+                content: "Media Pembelajaran Interaktif (MPI) ini dirancang khusus oleh Pengembang <strong>Amirul Iqbal Heru Gicha Saputro, S.S., S.Kom., Gr. (MAS Hubulo)</strong> untuk siswa Madrasah Aliyah Kelas XII (Fase F) dalam menguasai topik <strong>الدراسة في الجامعة</strong> (Studi di Perguruan Tinggi) secara mendalam, berbasis Kurikulum Berbasis Cinta (KBC Kemenag RI)."
+            },
+            {
+                title: "Alur Pembelajaran Terkunci Bertahap (3 Level)",
+                content: "Sistem mengadopsi prinsip ketuntasan belajar bertahap: <br>1. <strong>Menu Belajar:</strong> 7 Slide materi interaktif.<br>2. <strong>Menu Bermain:</strong> 10 tantangan literasi & numerasi gamifikasi.<br>3. <strong>Menu Berlatih:</strong> 10 soal asesmen berjenjang.<br>Setiap tahap wajib diselesaikan untuk membuka kunci menu berikutnya secara otomatis."
+            },
+            {
+                title: "Kurikulum Berbasis Cinta & Integration Spreadsheet",
+                content: "Setiap materi mengintegrasikan nilai cinta ilmu, kasih sayang sesama, moderasi beragama, dan wawasan wilayah. Seluruh hasil pengerjaan Anda akan terkirim secara otomatis ke Database Google Sheets guru."
+            }
+        ];
+
+        // 7 Slide Belajar
+        const belajarSlides = [
+            {
+                title: "Slide 1: Pengantar Wacana الدراسة في الجامعة",
+                arabicHeader: "الْتَحَقَ أَحْمَدُ بِالْجَامِعَةِ لِيَتَخَصَّصَ فِي التَّرْبِيَةِ الإِسْلَامِيَّةِ.",
+                content: "Pendidikan tinggi merupakan gerbang emas pengabdian intelektual. Di Provinsi Gorontalo, perguruan tinggi unggulan seperti IAIN Sultan Amai dan UNG menjadi pusat pengembangan peradaban. Mari kita cermati wacana kehidupan kampus dengan kaidah tata bahasa Arab yang sahih.",
+                kbc: "KBC: Menumbuhkan cinta ilmu setinggi langit sebagai wujud rasa syukur atas nikmat akal dari Allah SWT.",
+                quran: {
+                    arabic: "قُلْ هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُونَ وَالَّذِينَ لَا يَعْلَمُونَ",
+                    surah: "QS. Az-Zumar: 9",
+                    trans: "Katakanlah: 'Apakah sama orang-orang yang mengetahui dengan orang-orang yang tidak mengetahui?'"
+                },
+                question: {
+                    text: "Manakah terjemahan yang paling tepat untuk kalimat: 'الْتَحَقَ أَحْمَدُ بِالْجَامِعَةِ'?",
+                    options: [
+                        "A. Ahmad pergi berkunjung ke perpustakaan kampus.",
+                        "B. Ahmad masuk / bergabung ke perguruan tinggi.",
+                        "C. Ahmad telah lulus dari madrasah aliyah."
+                    ],
+                    correct: 1
+                }
+            },
+            {
+                title: "Slide 2: Konsep Dasar Al-Fi'lu Al-Mudhari' Al-Marfu'",
+                arabicHeader: "يَدْرُسُ الطَّالِبُ فِي الْجَامِعَةِ بِجِدٍّ وَنَشَاطٍ.",
+                content: "Fi'il Mudhari' Marfu' adalah kata kerja yang menunjukkan pekerjaan sedang atau akan dilakukan, dan huruf akhirnya berbaris dammah karena tidak didahului oleh huruf nashab atau jazim. Contoh: يَدْرُسُ (ia sedang belajar).",
+                kbc: "KBC: Kesungguhan belajar (jiddun) di bangku kuliah adalah bentuk cinta tanah air dalam mempersiapkan SDM unggul.",
+                quran: {
+                    arabic: "يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنْكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ",
+                    surah: "QS. Al-Mujadilah: 11",
+                    trans: "Allah akan meninggikan orang-orang yang beriman di antaramu dan orang-orang yang diberi ilmu pengetahuan beberapa derajat."
+                },
+                question: {
+                    text: "Apa tanda i'rab marfu' pada kata 'يَدْرُسُ' dalam kalimat di atas?",
+                    options: [
+                        "A. Fathah di akhir kata",
+                        "B. Kasrah di akhir kata",
+                        "C. Dammah di akhir kata"
+                    ],
+                    correct: 2
+                }
+            },
+            {
+                title: "Slide 3: Fi'il Mudhari' Al-Manshub (Huruf Nashab)",
+                arabicHeader: "أُريدُ أَنْ أَدْرُسَ اللُّغَةَ الْعَرَبِيَّةَ فِي مِصْرَ.",
+                content: "Fi'il Mudhari' menjadi Manshub ketika didahului oleh huruf nashab (أَنْ، لَنْ، إِذَنْ، لِـ). Tanda nashabnya adalah fathah pada huruf sahih. Contoh: أَنْ أَدْرُسَ. Mesir dengan Universitas Al-Azhar di Kairo menjadi destinasi utama mahasiswa global.",
+                kbc: "KBC: Semangat merantau menuntut ilmu melatih ketangguhan mental dan persaudaraan global (ukhuwah Islamiyah).",
+                quran: {
+                    arabic: "وَما تَدْرِي نَفْسٌ ماذا تَكْسِبُ غَداً",
+                    surah: "QS. Luqman: 34",
+                    trans: "Dan tiada seorang pun yang dapat mengetahui (dengan pasti) apa yang akan diusahakannya besok."
+                },
+                question: {
+                    text: "Mengapa kata 'أَدْرُسَ' dibaca berbaris fathah (manshub)?",
+                    options: [
+                        "A. Karena didahului huruf nashab 'أَنْ'",
+                        "B. Karena didahului huruf jazim 'لَمْ'",
+                        "C. Karena merupakan kata benda abstrak"
+                    ],
+                    correct: 0
+                }
+            },
+            {
+                title: "Slide 4: Eksplorasi Akademik & Perbandingan Global",
+                arabicHeader: "لَنْ يَرْسَبَ الطَّالِبُ الْمُجْتَهِدُ فِي إِخْتِبَارَاتِهِ.",
+                content: "Dalam menyusun target studi, penggunaan 'لَنْ' (sekali-kali tidak akan) menegaskan penolakan di masa depan. Perbandingan akademik antara universitas di Saudi Arabia dan Inggris menunjukkan pentingnya penguasaan multi-bahasa.",
+                kbc: "KBC: Menghargai keragaman budaya dunia dengan tetap memegang teguh identitas keimanan dan akhlak mulia.",
+                quran: {
+                    arabic: "اقْرَأْ وَرَبُّكَ الْأَكْرَمُ",
+                    surah: "QS. Al-Alaq: 3",
+                    trans: "Bacalah, dan Tuhanmulah Yang Maha Pemurah."
+                },
+                question: {
+                    text: "Apa arti dari partikel 'لَنْ' dalam kalimat 'لَنْ يَرْسَبَ'?",
+                    options: [
+                        "A. Belum pernah terjadi",
+                        "B. Sekali-kali tidak akan",
+                        "C. Mudah-mudahan terjadi"
+                    ],
+                    correct: 1
+                }
+            },
+            {
+                title: "Slide 5: Fi'il Mudhari' Al-Majzum (Huruf Jazim)",
+                arabicHeader: "لَمْ يَحْضُرْ أَحْمَدُ إِلَى الْمُحَاضَرَةِ أَمْسِ.",
+                content: "Fi'il Mudhari' menjadi Majzum apabila didahului oleh huruf jazim seperti لَمْ (belum/tidak), لَا النَّهْيِيَّة (jangan), atau لَامُ الْأَمْر. Tandanya adalah sukun pada huruf akhir sahih. Contoh: لَمْ يَحْضُرْ.",
+                kbc: "KBC: Disiplin waktu dan kehadiran dalam majelis ilmu adalah cerminan kecintaan kepada proses pembelajaran.",
+                quran: {
+                    arabic: "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+                    surah: "QS. Al-Ikhlas: 3",
+                    trans: "Dia tiada beranak dan tidak pula diperanakkan."
+                },
+                question: {
+                    text: "Apa tanda i'rab jazim pada kata 'يَحْضُرْ' setelah huruf لَمْ?",
+                    options: [
+                        "A. Sukun",
+                        "B. Fathah",
+                        "C. Dammah"
+                    ],
+                    correct: 0
+                }
+            },
+            {
+                title: "Slide 6: Larangan & Perintah dalam Dunia Kampus",
+                arabicHeader: "لَا تَتَكَاسَلْ فِي طَلَبِ الْعِلْمِ النَّافِعِ!",
+                content: "Penggunaan 'لَا' an-nahiyah (jangan) menjazamkan fi'il mudhari', seperti 'لَا تَتَكَاسَلْ'. Mahasiswa dituntut proaktif, berpikir kritis, serta menjaga kelestarian lingkungan kampus (Eco-Campus).",
+                kbc: "KBC: Menjaga kebersihan dan penghijauan lingkungan kampus sebagai wujud cinta alam ciptaan Allah SWT.",
+                quran: {
+                    arabic: "وَلَا تَبْسُطْها كُلَّ الْبَسْطِ فَتَقْعُدَ مَلُوماً مَحْسُوراً",
+                    surah: "QS. Al-Isra: 29",
+                    trans: "Dan janganlah kamu jadikan tanganmu terbelenggu pada lehermu..."
+                },
+                question: {
+                    text: "Apa fungsi dari 'لَا' dalam kalimat 'لَا تَتَكَاسَلْ'?",
+                    options: [
+                        "A. La Nafiyah (penolakan berita)",
+                        "B. La Nahiyah (larangan tegas)",
+                        "C. La 'Atifah (kata sambung)"
+                    ],
+                    correct: 1
+                }
+            },
+            {
+                title: "Slide 7: Rangkuman Sintaksis & Persiapan Ujian",
+                arabicHeader: "الْعِلْمُ نُورٌ وَالْجَهْلُ ظَلَامٌ.",
+                content: "Kita telah mempelajari tiga keadaan I'rab Fi'il Mudhari': Marfu' (asal/dammah), Manshub (didahului أَنْ, لَنْ), dan Majzum (didahului لَمْ, لَا). Pemahaman ini mengokohkan kemampuan literasi teks Arab tingkat lanjut.",
+                kbc: "KBC: Niatkan menuntut ilmu semata-mata mencari keridaan Allah dan memberikan manfaat seluas-luasnya.",
+                quran: {
+                    arabic: "وَقُلْ رَبِّ زِدْنِي عِلْماً",
+                    surah: "QS. Taha: 114",
+                    trans: "Dan katakanlah: 'Ya Tuhanku, tambahkanlah kepadaku ilmu pengetahuan.'"
+                },
+                question: {
+                    text: "Manakah rangkuman yang benar mengenai huruf-huruf jazim?",
+                    options: [
+                        "A. أَنْ، لَنْ، كَيْ",
+                        "B. لَمْ، لَا النَّهْيِيَّة، لَامُ الْأَمْر",
+                        "C. فِي، إِلَى، عَلَى"
+                    ],
+                    correct: 1
+                }
+            }
+        ];
+
+        // 10 Tantangan Bermain
+        const bermainChallenges = [
+            { id: 1, stimulus: "Studi kasus di Universitas Al-Azhar Kairo...", question: "Berdasarkan stimulus di atas, apa fungsi dari partikel 'أَنْ' sebelum kata 'أَتَخَصَّصَ'?", options: ["A. Menjazamkan dengan sukun", "B. Menashabkan dengan fathah", "C. Merasmikan fi'il madhi", "D. Menjadikan kalimat tanya"], correct: 1 },
+            { id: 2, stimulus: "Perpustakaan Universitas Negeri Gorontalo (UNG)...", question: "Apa perubahan i'rab pada kata kerja setelah partikel 'لَمْ'?", options: ["A. Marfu' dengan dammah", "B. Manshub dengan fathah", "C. Majzum dengan sukun", "D. Mabni atas kasrah"], correct: 2 },
+            { id: 3, stimulus: "Dalam seminar internasional tentang KBC...", question: "Manakah analisis tata bahasa yang tepat untuk kalimat larangan 'لَا تَتَكَاسَلْ'?", options: ["A. 'لَا' nafiyah dan 'تَتَكَاسَلْ' marfu'", "B. 'لَا' nahiyah dan 'تَتَكَاسَلْ' majzum", "C. 'لَا' huruf jar", "D. 'لَا' kata sambung"], correct: 1 },
+            { id: 4, stimulus: "Statistik penerimaan mahasiswa baru...", question: "Apa tanda i'rab nashab pada kata 'يَجْتَهِدَ'?", options: ["A. Fathah zhahirah di akhir huruf", "B. Dammah di akhir huruf", "C. Kasrah di akhir huruf", "D. Sukun di akhir huruf"], correct: 0 },
+            { id: 5, stimulus: "Kisah inspiratif para ulama Nusantara...", question: "Apa makna dan fungsi partikel 'لَنْ' dalam kalimat 'لَنْ يَنَالَ'?", options: ["A. Menunjukkan harapan masa lalu", "B. Penolakan tegas di masa depan (sekali-kali tidak)", "C. Perintah tegas", "D. Pertanyaan ragu-ragu"], correct: 1 },
+            { id: 6, stimulus: "Diskusi kelompok ilmiah di MAS Hubulo...", question: "Apa status i'rab dari kata 'تُشَارِعُ' dalam kalimat tersebut?", options: ["A. Marfu' (keadaan asal)", "B. Manshub", "C. Majzum", "D. Majrur"], correct: 0 },
+            { id: 7, stimulus: "Dalam penulisan esai ilmiah berbahasa Arab...", question: "Mengapa huruf dal pada 'يَحْضُرِ' diberi harakat kasrah?", options: ["A. Karena huruf jar", "B. Mencegah iltiqaus sakinin (dua sukun)", "C. Berstatus manshub", "D. Tanda jamak"], correct: 1 },
+            { id: 8, stimulus: "Integrasi Kurikulum Berbasis Cinta...", question: "Manakah kata yang berstatus manshub dalam kutipan kuliah di atas?", options: ["A. يَنْبَغِي", "B. الطَّالِبِ", "C. يُسَاعِدَ", "D. زُمَلَاءَهُ"], correct: 2 },
+            { id: 9, stimulus: "Analisis numerasi dan data statistik alumni...", question: "Apa tanda jazim pada kata 'تُؤَخِّرْ'?", options: ["A. Sukun", "B. Fathah", "C. Dammah", "D. Kasrah"], correct: 0 },
+            { id: 10, stimulus: "Sebagai penutup rangkaian tantangan bermain...", question: "Berdasarkan materi, apa inti sari dari tema 'الدراسة في الجامعة'?", options: ["A. Sekadar mencari ijazah", "B. Pengembangan ilmu, penguasaan tata bahasa, dan pengabdian berlandaskan KBC", "C. Menghindari interaksi", "D. Belajar tanpa arah"], correct: 1 }
+        ];
+
+        // 10 Soal Asesmen Berlatih
+        const berlatihQuestions = [
+            { id: 1, level: "Level 1: Dasar / Pemahaman", bobot: 8, stimulus: "Dalam pengenalan kosakata perkuliahan...", question: "Manakah kalimat di bawah ini yang menggunakan Fi'il Mudhari' Marfu' dengan benar?", options: ["A. لَمْ يَذْهَبْ طَالِبُ إِلَى الجَامِعَةِ", "B. يُريدُ الطَّالِبُ أَنْ يَنْجَحَ فِي الِاخْتِبَارِ", "C. يَحْضُرُ الأُسْتَاذُ المحَاضَرَةَ بِنَشَاطٍ", "D. لَنْ يَرْسَبَ المُجْتَهِدُ أَبَداً"], correct: 2 },
+            { id: 2, level: "Level 1: Dasar / Pemahaman", bobot: 8, stimulus: "Huruf nashab dalam tata bahasa Arab...", question: "Manakah pasangan huruf nashab dan fi'il mudhari' manshub yang tepat?", options: ["A. لَمْ يَحْضُرْ", "B. أَنْ أَدْرُسَ", "C. لَا تَتَكَاسَلْ", "D. هُوَ يَكْتُبُ"], correct: 1 },
+            { id: 3, level: "Level 1: Dasar / Pemahaman", bobot: 8, stimulus: "Huruf jazim seperti 'لَمْ'...", question: "Apa tanda i'rab pada fi'il mudhari' yang didahului oleh huruf jazim 'لَمْ'?", options: ["A. Sukun", "B. Fathah", "C. Dammah", "D. Kasrah"], correct: 0 },
+            { id: 4, level: "Level 2: Sedang / Aplikasi", bobot: 10, stimulus: "Studi kasus di Universitas Al-Azhar...", question: "Bagaimana status i'rab dan tanda pada kata 'يَتَفَقَّهَ'?", options: ["A. Marfu' dammah muqaddarah", "B. Manshub fathah zhahirah", "C. Majzum buang huruf illat", "D. Majrur kasrah"], correct: 1 },
+            { id: 5, level: "Level 2: Sedang / Aplikasi", bobot: 10, stimulus: "Dalam merencanakan program pertukaran...", question: "Manakah analisis yang tepat mengenai struktur 'أَنْ نَتَعَلَّمَ'?", options: ["A. 'أَنْ' huruf jazim", "B. 'أَنْ' huruf nashab dan 'نَتَعَلَّمَ' manshub fathah", "C. 'أَنْ' harf jar", "D. 'أَنْ' harf istifham"], correct: 1 },
+            { id: 6, level: "Level 2: Sedang / Aplikasi", bobot: 10, stimulus: "Peringatan disiplin akademik...", question: "Apa fungsi partikel 'لَا' dan keadaan i'rab kata 'تَقْرَأْ'?", options: ["A. La Nafiyah dan marfu'", "B. La Nahiyah dan majzum sukun", "C. La Amri dan manshub", "D. La Zaidah"], correct: 1 },
+            { id: 7, level: "Level 2: Sedang / Aplikasi", bobot: 10, stimulus: "Statistik riset pendidikan...", question: "Bagaimana tanda i'rab marfu' pada kata 'يَحْضُرُونَ'?", options: ["A. Dammah zhahirah", "B. Tetapnya huruf Nun (ثبوت النون)", "C. Membuang Nun", "D. Sukun"], correct: 1 },
+            { id: 8, level: "Level 3: Tinggi / HOTS", bobot: 12, stimulus: "Analisis wacana tingkat lanjut...", question: "Manakah identifikasi i'rab yang tepat untuk 'يَسْتَطِعِ' dan 'يُكْمِلَ'?", options: ["A. 'يَسْتَطِعِ' majzum (kasrah iltiqaus sakinin), 'يُكْمِلَ' manshub fathah", "B. Keduanya marfu'", "C. Keduanya majzum sukun", "D. 'يَسْتَطِعِ' manshub, 'يُكْمِلَ' marfu'"], correct: 0 },
+            { id: 9, level: "Level 3: Tinggi / HOTS", bobot: 12, stimulus: "Korelasi Kurikulum Berbasis Cinta...", question: "Apa efek gramatikal dari 'لَامُ الْأَمْر' pada kata 'يَعْمَلْ'?", options: ["A. Menashabkan fathah", "B. Menjazamkan sukun", "C. Merasmikan dammah", "D. Menjerkan kasrah"], correct: 1 },
+            { id: 10, level: "Level 3: Tinggi / HOTS", bobot: 12, stimulus: "Evaluasi komprehensif wacana...", question: "Berdasarkan analisis sintaksis dan semantik, apa kesimpulan dari kalimat penutup di atas?", options: ["A. Belajar di universitas tidak menjamin masa depan", "B. Menuntut ilmu berlandaskan akhlak & tata bahasa yang benar takkan membawa penyesalan", "C. Bebas mengabaikan kaidah", "D. Ilmu terpisah dari kemanusiaan"], correct: 1 }
+        ];
+
+        // --- Core Application Logic & Views ---
+        let currentView = 'cover';
+        let reflectionSaved = false;
+        const viewIds = ['cover','identity','guide','dashboard','belajar','bermain','berlatih','reflection','report'];
+
+        function showView(name) {
+            playSessionSwitch();
+            currentView = name;
+            viewIds.forEach(v => {
+                const el = document.getElementById('view-' + v);
+                if (el) el.classList.toggle('hidden', v !== name);
+            });
+            window.scrollTo({top:0, behavior:'smooth'});
+            updateTicker();
+            if (name === 'dashboard') updateDashboard();
+        }
+
+        function openModal(id) { playBtnClick(); document.getElementById(id)?.classList.remove('hidden'); }
+        function closeModal(id) { playBtnClick(); document.getElementById(id)?.classList.add('hidden'); }
+        function goToIdentity(){ showView('identity'); }
+
+        function confirmExit(){
+            if(confirm('Keluar dan mengatur ulang sesi pembelajaran?')){
+                studentName=''; studentClass=''; bermainAnswers={}; berlatihAnswers={};
+                bermainScore=0; totalBerlatihScore=0; currentBelajarSlide=0;
+                belajarCompletedSlides=[false,false,false,false,false,false,false];
+                unlockedBermain=false; unlockedBerlatih=false; reflectionSaved=false;
+                userReflection={learned:'',known:'',apply:''};
+                showView('cover');
+                document.getElementById('student-badge').classList.add('hidden');
+                document.getElementById('student-badge').classList.remove('flex');
+                updateTicker();
+            }
+        }
+
+        function handleIdentitySubmit(event){
+            event.preventDefault(); playBtnClick();
+            studentName=document.getElementById('input-name').value.trim();
+            studentClass=document.getElementById('input-class').value;
+            if(!studentName || !studentClass){document.getElementById('identity-error').classList.remove('hidden');return;}
+            document.getElementById('identity-error').classList.add('hidden');
+            document.getElementById('student-initials').textContent=studentName.split(/\s+/).map(x=>x[0]).slice(0,2).join('').toUpperCase();
+            document.getElementById('nav-student-name').textContent=studentName;
+            document.getElementById('nav-student-class').textContent=studentClass;
+            document.getElementById('student-badge').classList.remove('hidden');
+            document.getElementById('student-badge').classList.add('flex');
+            document.getElementById('ticker-student-name').textContent=studentName;
+            renderGuide(); showView('guide');
+        }
+
+        function renderGuide(){
+            const item=guideSteps[currentGuideStep];
+            document.getElementById('guide-title').textContent=item.title;
+            document.getElementById('guide-counter').textContent=`Panduan ${currentGuideStep+1} dari ${guideSteps.length}`;
+            document.getElementById('guide-content').innerHTML=`<p>${item.content}</p>`;
+            document.getElementById('guide-prev').disabled=currentGuideStep===0;
+            document.getElementById('guide-next').innerHTML=currentGuideStep===guideSteps.length-1?'Masuk ke Dashboard <i class="fa-solid fa-arrow-right ml-2"></i>':'Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>';
+        }
+
+        function nextGuideStep(){playBtnClick(); if(currentGuideStep<guideSteps.length-1){currentGuideStep++;renderGuide();}else{showView('dashboard');}}
+        function prevGuideStep(){playBtnClick();if(currentGuideStep>0){currentGuideStep--;renderGuide();}}
+
+        function openMenu(menu){
+            playBtnClick();
+            if(menu==='bermain'&&!unlockedBermain){showAlert('Menu Bermain Terkunci','Selesaikan seluruh materi pada menu Belajar terlebih dahulu.');return;}
+            if(menu==='berlatih'&&!unlockedBerlatih){showAlert('Menu Berlatih Terkunci','Selesaikan seluruh tantangan pada menu Bermain terlebih dahulu.');return;}
+            if(menu==='belajar'){currentBelajarSlide=0;renderBelajarSlide();showView('belajar');}
+            if(menu==='bermain'){currentBermainIndex=0;renderBermainQuestion();showView('bermain');}
+            if(menu==='berlatih'){currentBerlatihIndex=0;renderBerlatihQuestion();showView('berlatih');}
+        }
+        function tryOpenMenu(menu){openMenu(menu);}
+
+        function showAlert(title,msg){
+            document.getElementById('alert-title').textContent=title;
+            document.getElementById('alert-msg').textContent=msg;
+            document.getElementById('modal-alert').classList.remove('hidden');
+        }
+
+        function backToDashboard(){playBtnClick();showView('dashboard');}
+
+        function updateDashboard(){
+            document.getElementById('status-belajar').textContent=belajarCompletedSlides.every(Boolean)?'SELESAI ✓':'TERBUKA 🔓';
+            document.getElementById('status-bermain-text').textContent=unlockedBermain?'TERBUKA 🔓':'TERKUNCI 🔒';
+            document.getElementById('status-berlatih-text').textContent=unlockedBerlatih?'TERBUKA 🔓':'TERKUNCI 🔒';
+            document.getElementById('card-bermain').classList.toggle('opacity-70',!unlockedBermain);
+            document.getElementById('card-berlatih').classList.toggle('opacity-70',!unlockedBerlatih);
+            document.getElementById('lock-bermain').className=unlockedBermain?'fa-solid fa-unlock':'fa-solid fa-lock';
+            document.getElementById('lock-berlatih').className=unlockedBerlatih?'fa-solid fa-unlock':'fa-solid fa-lock';
             updateTicker();
         }
-    }
 
-    function handleIdentitySubmit(event){
-        event.preventDefault(); playBtnClick();
-        studentName=document.getElementById('input-name').value.trim();
-        studentClass=document.getElementById('input-class').value;
-        if(!studentName || !studentClass){document.getElementById('identity-error').classList.remove('hidden');return;}
-        document.getElementById('identity-error').classList.add('hidden');
-        document.getElementById('student-initials').textContent=studentName.split(/\s+/).map(x=>x[0]).slice(0,2).join('').toUpperCase();
-        document.getElementById('nav-student-name').textContent=studentName;
-        document.getElementById('nav-student-class').textContent=studentClass;
-        document.getElementById('student-badge').classList.remove('hidden');
-        document.getElementById('student-badge').classList.add('flex');
-        document.getElementById('ticker-student-name').textContent=studentName;
-        renderGuide(); showView('guide');
-    }
-
-    function renderGuide(){
-        const item=guideSteps[currentGuideStep];
-        document.getElementById('guide-title').textContent=item.title;
-        document.getElementById('guide-counter').textContent=`Panduan ${currentGuideStep+1} dari ${guideSteps.length}`;
-        document.getElementById('guide-content').innerHTML=`<p>${item.content}</p>`;
-        document.getElementById('guide-prev').disabled=currentGuideStep===0;
-        document.getElementById('guide-next').innerHTML=currentGuideStep===guideSteps.length-1?'Masuk ke Dashboard <i class="fa-solid fa-arrow-right ml-2"></i>':'Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>';
-    }
-
-    function nextGuideStep(){playBtnClick(); if(currentGuideStep<guideSteps.length-1){currentGuideStep++;renderGuide();}else{showView('dashboard');}}
-    function prevGuideStep(){playBtnClick();if(currentGuideStep>0){currentGuideStep--;renderGuide();}}
-
-    function openMenu(menu){
-        playBtnClick();
-        if(menu==='bermain'&&!unlockedBermain){showAlert('Menu Bermain Terkunci','Selesaikan seluruh materi pada menu Belajar terlebih dahulu.');return;}
-        if(menu==='berlatih'&&!unlockedBerlatih){showAlert('Menu Berlatih Terkunci','Selesaikan seluruh tantangan pada menu Bermain terlebih dahulu.');return;}
-        if(menu==='belajar'){currentBelajarSlide=0;renderBelajarSlide();showView('belajar');}
-        if(menu==='bermain'){currentBermainIndex=0;renderBermainQuestion();showView('bermain');}
-        if(menu==='berlatih'){currentBerlatihIndex=0;renderBerlatihQuestion();showView('berlatih');}
-    }
-    function tryOpenMenu(menu){openMenu(menu);}
-
-    function showAlert(title,msg){
-        document.getElementById('alert-title').textContent=title;
-        document.getElementById('alert-msg').textContent=msg;
-        document.getElementById('modal-alert').classList.remove('hidden');
-    }
-
-    function backToDashboard(){playBtnClick();showView('dashboard');}
-
-    function updateDashboard(){
-        document.getElementById('status-belajar').textContent=belajarCompletedSlides.every(Boolean)?'SELESAI ✓':'TERBUKA 🔓';
-        document.getElementById('status-bermain-text').textContent=unlockedBermain?'TERBUKA 🔓':'TERKUNCI 🔒';
-        document.getElementById('status-berlatih-text').textContent=unlockedBerlatih?'TERBUKA 🔓':'TERKUNCI 🔒';
-        document.getElementById('card-bermain').classList.toggle('opacity-70',!unlockedBermain);
-        document.getElementById('card-berlatih').classList.toggle('opacity-70',!unlockedBerlatih);
-        document.getElementById('lock-bermain').className=unlockedBermain?'fa-solid fa-unlock':'fa-solid fa-lock';
-        document.getElementById('lock-berlatih').className=unlockedBerlatih?'fa-solid fa-unlock':'fa-solid fa-lock';
-        updateTicker();
-    }
-
-    // --- Render Slide Belajar ---
-    function renderBelajarSlide(){
-        const item=belajarSlides[currentBelajarSlide];
-        const area=document.getElementById('belajar-content-area');
-        let html=`<h2 class="text-xl md:text-2xl font-bold text-gold-light">${item.title||''}</h2>`;
-        if(item.arabicHeader) html+=`<p class="arabic-text text-2xl text-gold text-right">${item.arabicHeader}</p>`;
-        html+=`<p class="text-sm leading-relaxed text-gray-300">${item.content||''}</p>`;
-        if(item.quran) html+=`<div class="rounded-xl bg-pearl/70 p-4"><p class="arabic-text text-xl text-right text-gold-light">${item.quran.arabic||''}</p><p class="text-xs text-gold mt-2">${item.quran.surah||''}</p><p class="text-xs text-gray-300 mt-1">${item.quran.trans||''}</p></div>`;
-        if(item.kbc) html+=`<div class="border-l-4 border-gold bg-gold/5 p-4 rounded-r-xl text-sm">${item.kbc}</div>`;
-        if(item.question) {
-            const q=typeof item.question==='string'?item.question:item.question.text;
-            html+=`<div class="border border-gold/30 rounded-xl p-4"><p class="font-semibold text-sm mb-3">${q||''}</p>`;
-            if(item.question.options) html+=item.question.options.map((o,i)=>`<button class="block w-full text-left p-3 rounded-lg bg-darkslate hover:bg-gold/10 text-xs mb-2" onclick="this.classList.toggle('ring-2');playBtnClick()">${o}</button>`).join('');
-            html+='</div>';
-        }
-        area.innerHTML=html;
-        document.getElementById('belajar-slide-indicator').textContent=`Slide ${currentBelajarSlide+1} dari ${belajarSlides.length}`;
-        document.getElementById('belajar-prev-btn').disabled=currentBelajarSlide===0;
-        document.getElementById('belajar-next-btn').innerHTML=currentBelajarSlide===belajarSlides.length-1?'Selesaikan Materi <i class="fa-solid fa-check ml-2"></i>':'Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>';
-    }
-
-    function nextBelajarSlide(){
-        playBtnClick();
-        belajarCompletedSlides[currentBelajarSlide]=true;
-        if(currentBelajarSlide<belajarSlides.length-1){currentBelajarSlide++;renderBelajarSlide();playSessionSwitch();}
-        else{
-            unlockedBermain=true; playCompletionSound();
-            showAlert('Materi Belajar Selesai!','Hebat! Seluruh materi telah dituntaskan. Menu Bermain sekarang terbuka.');
-            updateDashboard(); showView('dashboard');
-        }
-    }
-    function prevBelajarSlide(){playBtnClick();if(currentBelajarSlide>0){currentBelajarSlide--;renderBelajarSlide();playSessionSwitch();}}
-
-    // --- Render Game Bermain ---
-    function renderBermainQuestion(){
-        const item=bermainChallenges[currentBermainIndex]; if(!item)return;
-        document.getElementById('bermain-counter').textContent=`Tantangan ${currentBermainIndex+1} dari ${bermainChallenges.length}`;
-        document.getElementById('bermain-score').textContent=`Skor: ${bermainScore}`;
-        const area=document.getElementById('bermain-content-area');
-        area.innerHTML=`<div class="space-y-5"><div class="text-xs text-blue-300 font-bold uppercase tracking-wider">Tantangan Literasi</div><p class="text-sm leading-relaxed text-gray-300">${item.stimulus}</p><h3 class="text-base md:text-lg font-bold text-white">${item.question}</h3><div class="grid gap-3">${item.options.map((o,i)=>`<button onclick="submitBermainAnswer(${i})" class="answer-option w-full text-left bg-darkslate hover:bg-blue-900/40 border border-gray-700 rounded-xl p-4 text-sm transition-all" data-option="${i}">${o}</button>`).join('')}</div><div id="bermain-feedback" class="hidden rounded-xl p-4 text-sm" role="status"></div><button id="bermain-next" onclick="nextBermainQuestion()" class="hidden bg-blue-500 hover:bg-blue-400 text-white px-5 py-3 rounded-xl font-bold text-sm">Tantangan Berikutnya <i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;
-        if(bermainAnswers[currentBermainIndex]) showBermainFeedback(bermainAnswers[currentBermainIndex].correct, true);
-    }
-
-    function submitBermainAnswer(index){
-        if(bermainAnswers[currentBermainIndex])return;
-        const item=bermainChallenges[currentBermainIndex];
-        const correct=index===item.correct;
-        bermainAnswers[currentBermainIndex]={selected:index,correct};
-        if(correct) {bermainScore++;playCorrectSound();} else playWrongSound();
-        showBermainFeedback(correct,false);
-        document.getElementById('bermain-score').textContent=`Skor: ${bermainScore}`;
-        updateTicker();
-    }
-
-    function showBermainFeedback(correct, prior){
-        const fb=document.getElementById('bermain-feedback'); if(!fb)return;
-        fb.classList.remove('hidden');fb.className=`rounded-xl p-4 text-sm ${correct?'bg-emerald-500/10 border border-emerald-500/40 text-emerald-300':'bg-red-500/10 border border-red-500/40 text-red-300'}`;
-        fb.textContent=correct?'✓ Jawaban benar! Bagus sekali.':`✕ Jawaban belum tepat. ${prior?'Silakan lanjutkan.':'Tetap semangat!'}`;
-        document.querySelectorAll('#bermain-content-area .answer-option').forEach((b,i)=>{b.disabled=true;if(i===bermainChallenges[currentBermainIndex].correct)b.classList.add('border-emerald-400');});
-        document.getElementById('bermain-next')?.classList.remove('hidden');
-    }
-
-    function nextBermainQuestion(){
-        playBtnClick();
-        if(currentBermainIndex<bermainChallenges.length-1){currentBermainIndex++;renderBermainQuestion();playSessionSwitch();}
-        else{
-            unlockedBerlatih=true;playCompletionSound();
-            sendDataToGAS("Bermain (Gamifikasi)", bermainScore, bermainChallenges.length - bermainScore, bermainScore, bermainAnswers);
-            updateDashboard();showAlert('Sesi Bermain Selesai!','Semua tantangan selesai dan data berhasil disinkronkan ke Google Sheets! Menu Berlatih telah terbuka.');
-            showView('dashboard');
-        }
-    }
-
-    // --- Render Asesmen Berlatih ---
-    function renderBerlatihQuestion(){
-        const item=berlatihQuestions[currentBerlatihIndex]; if(!item)return;
-        document.getElementById('berlatih-counter').textContent=`Soal Asesmen ${currentBerlatihIndex+1} dari ${berlatihQuestions.length}`;
-        document.getElementById('berlatih-level-badge').textContent=item.level;
-        const area=document.getElementById('berlatih-content-area');
-        area.innerHTML=`<div class="space-y-5"><div class="text-xs text-purple-300 font-bold uppercase tracking-wider">Asesmen Berjenjang • Bobot ${item.bobot} poin</div><p class="text-sm leading-relaxed text-gray-300">${item.stimulus}</p><h3 class="text-base md:text-lg font-bold text-white">${item.question}</h3><div class="grid gap-3">${item.options.map((o,i)=>`<button onclick="submitBerlatihAnswer(${i})" class="answer-option w-full text-left bg-darkslate hover:bg-purple-900/40 border border-gray-700 rounded-xl p-4 text-sm transition-all" data-option="${i}">${o}</button>`).join('')}</div><div id="berlatih-feedback" class="hidden rounded-xl p-4 text-sm" role="status"></div><div class="flex items-center justify-between"><span id="berlatih-score-live" class="text-xs text-gold font-bold">Nilai: ${totalBerlatihScore}/100</span><button id="berlatih-next" onclick="nextBerlatihQuestion()" class="hidden bg-purple-500 hover:bg-purple-400 text-white px-5 py-3 rounded-xl font-bold text-sm">Soal Berikutnya <i class="fa-solid fa-arrow-right ml-2"></i></button></div></div>`;
-        if(berlatihAnswers[currentBerlatihIndex]) showBerlatihFeedback(berlatihAnswers[currentBerlatihIndex].correct,true);
-    }
-
-    function submitBerlatihAnswer(index){
-        if(berlatihAnswers[currentBerlatihIndex])return;
-        const item=berlatihQuestions[currentBerlatihIndex], correct=index===item.correct;
-        berlatihAnswers[currentBerlatihIndex]={selected:index,correct};
-        if(correct){totalBerlatihScore+=item.bobot;playCorrectSound();}else playWrongSound();
-        showBerlatihFeedback(correct,false);
-        document.getElementById('berlatih-score-live').textContent=`Nilai: ${totalBerlatihScore}/100`;
-        updateTicker();
-    }
-
-    function showBerlatihFeedback(correct,prior){
-        const fb=document.getElementById('berlatih-feedback');if(!fb)return;
-        fb.classList.remove('hidden');fb.className=`rounded-xl p-4 text-sm ${correct?'bg-emerald-500/10 border border-emerald-500/40 text-emerald-300':'bg-red-500/10 border border-red-500/40 text-red-300'}`;
-        fb.textContent=correct?'✓ Jawaban benar! Poin berhasil ditambahkan.':`✕ Jawaban salah. ${prior?'Jawaban sebelumnya tersimpan.':'Jadikan ini bahan belajar.'}`;
-        const item=berlatihQuestions[currentBerlatihIndex];
-        document.querySelectorAll('#berlatih-content-area .answer-option').forEach((b,i)=>{b.disabled=true;if(i===item.correct)b.classList.add('border-emerald-400');});
-        document.getElementById('berlatih-next')?.classList.remove('hidden');
-    }
-
-    function nextBerlatihQuestion(){
-        playBtnClick();
-        if(currentBerlatihIndex<berlatihQuestions.length-1){currentBerlatihIndex++;renderBerlatihQuestion();playSessionSwitch();}
-        else{
-            playCompletionSound();
-            let correctCount = Object.values(berlatihAnswers).filter(x => x.correct).length;
-            let wrongCount = berlatihQuestions.length - correctCount;
-            sendDataToGAS("Berlatih (Asesmen)", correctCount, wrongCount, totalBerlatihScore, berlatihAnswers);
-            userReflection={learned:'',known:'',apply:''};reflectionSaved=false;
-            showView('reflection');
-        }
-    }
-
-    // --- Refleksi & Pengiriman Data ke Google Apps Script (GAS) ---
-    function handleReflectionSubmit(event){
-        event.preventDefault();playBtnClick();
-        userReflection.learned=document.getElementById('ref-learned').value.trim();
-        userReflection.known=document.getElementById('ref-known').value.trim();
-        userReflection.apply=document.getElementById('ref-apply').value.trim();
-        if(!userReflection.learned||!userReflection.known||!userReflection.apply){alert('Semua bagian refleksi wajib diisi.');return;}
-        reflectionSaved=true;
-        document.getElementById('rep-ref-learned').textContent=userReflection.learned;
-        document.getElementById('rep-ref-known').textContent=userReflection.known;
-        document.getElementById('rep-ref-apply').textContent=userReflection.apply;
-        renderReport();playCompletionSound();showView('report');
-    }
-
-    /**
-     * Mengirimkan Hasil Pengerjaan Siswa ke Google Apps Script Spreadsheet Backend
-     */
-    function sendDataToGAS(typeActivity, correct, wrong, score, details) {
-        if (!GAS_URL || GAS_URL.includes("URL_GAS_ANDA_DISINI")) {
-            console.warn("GAS_URL belum dikonfigurasi. Data disimpan secara lokal di browser.");
-            return;
+        // --- Render Slide Belajar ---
+        function renderBelajarSlide(){
+            const item=belajarSlides[currentBelajarSlide];
+            const area=document.getElementById('belajar-content-area');
+            let html=`<h2 class="text-xl md:text-2xl font-bold text-gold-light">${item.title||''}</h2>`;
+            if(item.arabicHeader) html+=`<p class="arabic-text text-2xl text-gold text-right">${item.arabicHeader}</p>`;
+            html+=`<p class="text-sm leading-relaxed text-gray-300">${item.content||''}</p>`;
+            if(item.quran) html+=`<div class="rounded-xl bg-pearl/70 p-4"><p class="arabic-text text-xl text-right text-gold-light">${item.quran.arabic||''}</p><p class="text-xs text-gold mt-2">${item.quran.surah||''}</p><p class="text-xs text-gray-300 mt-1">${item.quran.trans||''}</p></div>`;
+            if(item.kbc) html+=`<div class="border-l-4 border-gold bg-gold/5 p-4 rounded-r-xl text-sm">${item.kbc}</div>`;
+            if(item.question) {
+                const q=typeof item.question==='string'?item.question:item.question.text;
+                html+=`<div class="border border-gold/30 rounded-xl p-4"><p class="font-semibold text-sm mb-3">${q||''}</p>`;
+                if(item.question.options) html+=item.question.options.map((o,i)=>`<button class="block w-full text-left p-3 rounded-lg bg-darkslate hover:bg-gold/10 text-xs mb-2" onclick="this.classList.toggle('ring-2');playBtnClick()">${o}</button>`).join('');
+                html+='</div>';
+            }
+            area.innerHTML=html;
+            document.getElementById('belajar-slide-indicator').textContent=`Slide ${currentBelajarSlide+1} dari ${belajarSlides.length}`;
+            document.getElementById('belajar-prev-btn').disabled=currentBelajarSlide===0;
+            document.getElementById('belajar-next-btn').innerHTML=currentBelajarSlide===belajarSlides.length-1?'Selesaikan Materi <i class="fa-solid fa-check ml-2"></i>':'Selanjutnya <i class="fa-solid fa-arrow-right ml-2"></i>';
         }
 
-        const payload = {
-            studentName: studentName,
-            studentClass: studentClass,
-            correctCount: correct,
-            wrongCount: wrong,
-            score: score,
-            type: typeActivity,
-            detailAnswers: details
-        };
+        function nextBelajarSlide(){
+            playBtnClick();
+            belajarCompletedSlides[currentBelajarSlide]=true;
+            if(currentBelajarSlide<belajarSlides.length-1){currentBelajarSlide++;renderBelajarSlide();playSessionSwitch();}
+            else{
+                unlockedBermain=true; playCompletionSound();
+                showAlert('Materi Belajar Selesai!','Hebat! Seluruh materi telah dituntaskan. Menu Bermain sekarang terbuka.');
+                updateDashboard(); showView('dashboard');
+            }
+        }
+        function prevBelajarSlide(){playBtnClick();if(currentBelajarSlide>0){currentBelajarSlide--;renderBelajarSlide();playSessionSwitch();}}
 
-        fetch(GAS_URL, {
-            method: "POST",
-            mode: "no-cors", // Mode no-cors agar tidak terhalang batas CORS browser
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        })
-        .then(() => {
-            console.log(`[GAS Sync] Success sending ${typeActivity} data to Google Sheets.`);
-        })
-        .catch(err => {
-            console.error("[GAS Sync Error]", err);
+        // --- Render Game Bermain ---
+        function renderBermainQuestion(){
+            const item=bermainChallenges[currentBermainIndex]; if(!item)return;
+            document.getElementById('bermain-counter').textContent=`Tantangan ${currentBermainIndex+1} dari ${bermainChallenges.length}`;
+            document.getElementById('bermain-score').textContent=`Skor: ${bermainScore}`;
+            const area=document.getElementById('bermain-content-area');
+            area.innerHTML=`<div class="space-y-5"><div class="text-xs text-blue-300 font-bold uppercase tracking-wider">Tantangan Literasi</div><p class="text-sm leading-relaxed text-gray-300">${item.stimulus}</p><h3 class="text-base md:text-lg font-bold text-white">${item.question}</h3><div class="grid gap-3">${item.options.map((o,i)=>`<button onclick="submitBermainAnswer(${i})" class="answer-option w-full text-left bg-darkslate hover:bg-blue-900/40 border border-gray-700 rounded-xl p-4 text-sm transition-all" data-option="${i}">${o}</button>`).join('')}</div><div id="bermain-feedback" class="hidden rounded-xl p-4 text-sm" role="status"></div><button id="bermain-next" onclick="nextBermainQuestion()" class="hidden bg-blue-500 hover:bg-blue-400 text-white px-5 py-3 rounded-xl font-bold text-sm">Tantangan Berikutnya <i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;
+            if(bermainAnswers[currentBermainIndex]) showBermainFeedback(bermainAnswers[currentBermainIndex].correct, true);
+        }
+
+        function submitBermainAnswer(index){
+            if(bermainAnswers[currentBermainIndex])return;
+            const item=bermainChallenges[currentBermainIndex];
+            const correct=index===item.correct;
+            bermainAnswers[currentBermainIndex]={selected:index,correct};
+            if(correct) {bermainScore++;playCorrectSound();} else playWrongSound();
+            showBermainFeedback(correct,false);
+            document.getElementById('bermain-score').textContent=`Skor: ${bermainScore}`;
+            updateTicker();
+        }
+
+        function showBermainFeedback(correct, prior){
+            const fb=document.getElementById('bermain-feedback'); if(!fb)return;
+            fb.classList.remove('hidden');fb.className=`rounded-xl p-4 text-sm ${correct?'bg-emerald-500/10 border border-emerald-500/40 text-emerald-300':'bg-red-500/10 border border-red-500/40 text-red-300'}`;
+            fb.textContent=correct?'✓ Jawaban benar! Bagus sekali.':`✕ Jawaban belum tepat. ${prior?'Silakan lanjutkan.':'Tetap semangat!'}`;
+            document.querySelectorAll('#bermain-content-area .answer-option').forEach((b,i)=>{b.disabled=true;if(i===bermainChallenges[currentBermainIndex].correct)b.classList.add('border-emerald-400');});
+            document.getElementById('bermain-next')?.classList.remove('hidden');
+        }
+
+        function nextBermainQuestion(){
+            playBtnClick();
+            if(currentBermainIndex<bermainChallenges.length-1){currentBermainIndex++;renderBermainQuestion();playSessionSwitch();}
+            else{
+                unlockedBerlatih=true;playCompletionSound();
+                sendDataToGAS("Bermain (Gamifikasi)", bermainScore, bermainChallenges.length - bermainScore, bermainScore, bermainAnswers);
+                updateDashboard();showAlert('Sesi Bermain Selesai!','Semua tantangan selesai dan data berhasil disinkronkan ke Google Sheets! Menu Berlatih telah terbuka.');
+                showView('dashboard');
+            }
+        }
+
+        // --- Render Asesmen Berlatih ---
+        function renderBerlatihQuestion(){
+            const item=berlatihQuestions[currentBerlatihIndex]; if(!item)return;
+            document.getElementById('berlatih-counter').textContent=`Soal Asesmen ${currentBerlatihIndex+1} dari ${berlatihQuestions.length}`;
+            document.getElementById('berlatih-level-badge').textContent=item.level;
+            const area=document.getElementById('berlatih-content-area');
+            area.innerHTML=`<div class="space-y-5"><div class="text-xs text-purple-300 font-bold uppercase tracking-wider">Asesmen Berjenjang • Bobot ${item.bobot} poin</div><p class="text-sm leading-relaxed text-gray-300">${item.stimulus}</p><h3 class="text-base md:text-lg font-bold text-white">${item.question}</h3><div class="grid gap-3">${item.options.map((o,i)=>`<button onclick="submitBerlatihAnswer(${i})" class="answer-option w-full text-left bg-darkslate hover:bg-purple-900/40 border border-gray-700 rounded-xl p-4 text-sm transition-all" data-option="${i}">${o}</button>`).join('')}</div><div id="berlatih-feedback" class="hidden rounded-xl p-4 text-sm" role="status"></div><div class="flex items-center justify-between"><span id="berlatih-score-live" class="text-xs text-gold font-bold">Nilai: ${totalBerlatihScore}/100</span><button id="berlatih-next" onclick="nextBerlatihQuestion()" class="hidden bg-purple-500 hover:bg-purple-400 text-white px-5 py-3 rounded-xl font-bold text-sm">Soal Berikutnya <i class="fa-solid fa-arrow-right ml-2"></i></button></div></div>`;
+            if(berlatihAnswers[currentBerlatihIndex]) showBerlatihFeedback(berlatihAnswers[currentBerlatihIndex].correct,true);
+        }
+
+        function submitBerlatihAnswer(index){
+            if(berlatihAnswers[currentBerlatihIndex])return;
+            const item=berlatihQuestions[currentBerlatihIndex], correct=index===item.correct;
+            berlatihAnswers[currentBerlatihIndex]={selected:index,correct};
+            if(correct){totalBerlatihScore+=item.bobot;playCorrectSound();}else playWrongSound();
+            showBerlatihFeedback(correct,false);
+            document.getElementById('berlatih-score-live').textContent=`Nilai: ${totalBerlatihScore}/100`;
+            updateTicker();
+        }
+
+        function showBerlatihFeedback(correct,prior){
+            const fb=document.getElementById('berlatih-feedback');if(!fb)return;
+            fb.classList.remove('hidden');fb.className=`rounded-xl p-4 text-sm ${correct?'bg-emerald-500/10 border border-emerald-500/40 text-emerald-300':'bg-red-500/10 border border-red-500/40 text-red-300'}`;
+            fb.textContent=correct?'✓ Jawaban benar! Poin berhasil ditambahkan.':`✕ Jawaban salah. ${prior?'Jawaban sebelumnya tersimpan.':'Jadikan ini bahan belajar.'}`;
+            const item=berlatihQuestions[currentBerlatihIndex];
+            document.querySelectorAll('#berlatih-content-area .answer-option').forEach((b,i)=>{b.disabled=true;if(i===item.correct)b.classList.add('border-emerald-400');});
+            document.getElementById('berlatih-next')?.classList.remove('hidden');
+        }
+
+        function nextBerlatihQuestion(){
+            playBtnClick();
+            if(currentBerlatihIndex<berlatihQuestions.length-1){currentBerlatihIndex++;renderBerlatihQuestion();playSessionSwitch();}
+            else{
+                playCompletionSound();
+                let correctCount = Object.values(berlatihAnswers).filter(x => x.correct).length;
+                let wrongCount = berlatihQuestions.length - correctCount;
+                sendDataToGAS("Berlatih (Asesmen)", correctCount, wrongCount, totalBerlatihScore, berlatihAnswers);
+                userReflection={learned:'',known:'',apply:''};reflectionSaved=false;
+                showView('reflection');
+            }
+        }
+
+        // --- Refleksi & Pengiriman Data ke Google Apps Script (GAS) ---
+        function handleReflectionSubmit(event){
+            event.preventDefault();playBtnClick();
+            userReflection.learned=document.getElementById('ref-learned').value.trim();
+            userReflection.known=document.getElementById('ref-known').value.trim();
+            userReflection.apply=document.getElementById('ref-apply').value.trim();
+            if(!userReflection.learned||!userReflection.known||!userReflection.apply){alert('Semua bagian refleksi wajib diisi.');return;}
+            reflectionSaved=true;
+            document.getElementById('rep-ref-learned').textContent=userReflection.learned;
+            document.getElementById('rep-ref-known').textContent=userReflection.known;
+            document.getElementById('rep-ref-apply').textContent=userReflection.apply;
+            renderReport();playCompletionSound();showView('report');
+        }
+
+        /**
+         * Mengirimkan Hasil Pengerjaan Siswa ke Google Apps Script Spreadsheet Backend
+         */
+        function sendDataToGAS(typeActivity, correct, wrong, score, details) {
+            if (!GAS_URL || GAS_URL.includes("URL_GAS_ANDA_DISINI")) {
+                console.warn("GAS_URL belum dikonfigurasi.");
+                return;
+            }
+
+            const payload = {
+                studentName: studentName,
+                studentClass: studentClass,
+                correctCount: correct,
+                wrongCount: wrong,
+                score: score,
+                type: typeActivity,
+                detailAnswers: details
+            };
+
+            fetch(GAS_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                console.log(`[GAS Sync Success] Data ${typeActivity} berhasil dikirim ke Google Sheets.`);
+            })
+            .catch(err => {
+                console.error("[GAS Sync Error]", err);
+            });
+        }
+
+        function renderReport(){
+            document.getElementById('rep-student-name').textContent=studentName;
+            document.getElementById('rep-student-class').textContent=studentClass;
+            document.getElementById('rep-sign-name').textContent=studentName;
+            document.getElementById('rep-timestamp').textContent=new Date().toLocaleString('id-ID');
+            document.getElementById('rep-current-date').textContent=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+            document.getElementById('rep-bermain-score').textContent=`${bermainScore} / ${bermainChallenges.length}`;
+            document.getElementById('rep-berlatih-score').textContent=`${totalBerlatihScore} / 100`;
+            const pct=totalBerlatihScore;
+            document.getElementById('rep-predikat').textContent=pct>=90?'Sangat Baik':pct>=80?'Baik':pct>=70?'Cukup':'Perlu Bimbingan';
+        }
+
+        function downloadPDF(){
+            if(!reflectionSaved){showView('reflection');return;}
+            if(window.html2pdf){html2pdf().set({margin:8,filename:`Laporan_Bahasa_Arab_${studentName.replace(/\s+/g,'_')}.pdf`,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('report-printable-area')).save();}
+            else window.print();
+        }
+
+        function updateTicker(){
+            const name=document.getElementById('ticker-student-name');if(name)name.textContent=studentName||'Belum Terdaftar';
+            const bs=document.getElementById('ticker-bermain-score');if(bs)bs.textContent=`${bermainScore}/${bermainChallenges.length}`;
+            const ts=document.getElementById('ticker-berlatih-score');if(ts)ts.textContent=`${totalBerlatihScore}/100`;
+        }
+
+        window.addEventListener('DOMContentLoaded',()=>{
+            document.getElementById('splash-progress').style.width='100%';
+            setTimeout(()=>{
+                const splash=document.getElementById('splash-screen');
+                splash.style.opacity='0';
+                setTimeout(()=>{splash.style.display='none';const app=document.getElementById('app-container');app.classList.remove('hidden');requestAnimationFrame(()=>app.classList.remove('opacity-0'));},650);
+            },500);
+            updateTicker();
+            renderGuide();
+            document.querySelectorAll('button').forEach(btn=>{
+                if(!btn.hasAttribute('onclick') && btn.type!=='submit') btn.addEventListener('click',()=>playBtnClick());
+            });
         });
-    }
-
-    function renderReport(){
-        document.getElementById('rep-student-name').textContent=studentName;
-        document.getElementById('rep-student-class').textContent=studentClass;
-        document.getElementById('rep-sign-name').textContent=studentName;
-        document.getElementById('rep-timestamp').textContent=new Date().toLocaleString('id-ID');
-        document.getElementById('rep-current-date').textContent=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
-        document.getElementById('rep-bermain-score').textContent=`${bermainScore} / ${bermainChallenges.length}`;
-        document.getElementById('rep-berlatih-score').textContent=`${totalBerlatihScore} / 100`;
-        const pct=totalBerlatihScore;
-        document.getElementById('rep-predikat').textContent=pct>=90?'Sangat Baik':pct>=80?'Baik':pct>=70?'Cukup':'Perlu Bimbingan';
-    }
-
-    function downloadPDF(){
-        if(!reflectionSaved){showView('reflection');return;}
-        if(window.html2pdf){html2pdf().set({margin:8,filename:`Laporan_Bahasa_Arab_${studentName.replace(/\s+/g,'_')}.pdf`,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('report-printable-area')).save();}
-        else window.print();
-    }
-
-    function updateTicker(){
-        const name=document.getElementById('ticker-student-name');if(name)name.textContent=studentName||'Belum Terdaftar';
-        const bs=document.getElementById('ticker-bermain-score');if(bs)bs.textContent=`${bermainScore}/${bermainChallenges.length}`;
-        const ts=document.getElementById('ticker-berlatih-score');if(ts)ts.textContent=`${totalBerlatihScore}/100`;
-    }
-
-    window.addEventListener('DOMContentLoaded',()=>{
-        document.getElementById('splash-progress').style.width='100%';
-        setTimeout(()=>{
-            const splash=document.getElementById('splash-screen');
-            splash.style.opacity='0';
-            setTimeout(()=>{splash.style.display='none';const app=document.getElementById('app-container');app.classList.remove('hidden');requestAnimationFrame(()=>app.classList.remove('opacity-0'));},650);
-        },500);
-        updateTicker();
-        renderGuide();
-        document.querySelectorAll('button').forEach(btn=>{
-            if(!btn.hasAttribute('onclick') && btn.type!=='submit') btn.addEventListener('click',()=>playBtnClick());
-        });
-    });
-</script>
+    </script>
+</body>
+</html>
